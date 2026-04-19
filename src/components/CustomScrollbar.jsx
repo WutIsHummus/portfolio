@@ -87,6 +87,8 @@ export default function CustomScrollbar() {
     setDragging(true);
     setActive(true);
     document.body.style.userSelect = 'none';
+    // Override smooth-scroll so per-frame scrollTo updates land instantly.
+    document.documentElement.style.scrollBehavior = 'auto';
   };
 
   const onThumbPointerMove = (e) => {
@@ -96,13 +98,7 @@ export default function CustomScrollbar() {
     if (totalScroll <= 0 || range <= 0) return;
     const dy = e.clientY - y;
     const next = scrollY + (dy / range) * totalScroll;
-    // 'instant' bypasses the html { scroll-behavior: smooth } so the page
-    // tracks the cursor 1:1 instead of animating between every pointermove.
-    window.scrollTo({
-      top: Math.max(0, Math.min(totalScroll, next)),
-      left: 0,
-      behavior: 'instant',
-    });
+    window.scrollTo(0, Math.max(0, Math.min(totalScroll, next)));
   };
 
   const endDrag = (e) => {
@@ -117,6 +113,7 @@ export default function CustomScrollbar() {
     draggingRef.current = false;
     setDragging(false);
     document.body.style.userSelect = '';
+    document.documentElement.style.scrollBehavior = '';
     if (idleTimer.current) clearTimeout(idleTimer.current);
     idleTimer.current = setTimeout(() => setActive(false), 900);
   };
