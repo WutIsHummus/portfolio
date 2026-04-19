@@ -6,7 +6,7 @@ export default function About() {
     <section id="about" className="scroll-mt-24 mb-32">
       <SectionLabel index={1}>About</SectionLabel>
 
-      <div className="flex flex-col lg:flex-row-reverse gap-8 lg:gap-12 lg:items-start">
+      <div className="flex flex-col lg:flex-row-reverse gap-8 lg:gap-12 lg:items-center">
         <figure className="reveal shrink-0 lg:sticky lg:top-32 w-[160px] sm:w-[200px] lg:w-[220px] mx-auto lg:mx-0">
           <div className="aspect-[4/5] overflow-hidden rounded-sm bg-cream-200 dark:bg-ink-800 border border-ink-300 dark:border-ink-700">
             <img
