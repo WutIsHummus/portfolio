@@ -12,7 +12,11 @@ export default function ProjectCard({ project }) {
 
   return (
     <article className="reveal group">
-      <div className="project-art-wrap rounded-sm bg-cream-200 dark:bg-ink-800 overflow-hidden">
+      <div
+        className={`project-art-wrap rounded-sm bg-cream-200 dark:bg-ink-800 overflow-hidden ${
+          project.compact ? 'mx-auto w-full sm:w-3/4 lg:w-2/3' : ''
+        }`}
+      >
         <img
           src={project.image}
           alt={`${project.name} cover`}

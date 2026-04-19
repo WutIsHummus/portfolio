@@ -86,6 +86,7 @@ export const PROJECTS = [
     image: "/projects/photon.svg",
     width: 800,
     height: 180,
+    compact: true,
   },
   {
     name: "YoctoPiBuild",
