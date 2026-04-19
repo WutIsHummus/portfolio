@@ -10,6 +10,7 @@ import Footer from './components/Footer.jsx';
 import ScrollIndicator from './components/ScrollIndicator.jsx';
 import CustomScrollbar from './components/CustomScrollbar.jsx';
 import MobileMenu from './components/MobileMenu.jsx';
+import CursorTracker from './components/CursorTracker.jsx';
 import { NAV } from './data/portfolio.js';
 
 const THEME_KEY = 'portfolio-theme';
@@ -104,6 +105,7 @@ export default function App() {
       <ScrollIndicator active={active} />
       <CustomScrollbar />
       <MobileMenu active={active} />
+      <CursorTracker />
 
       <MobileHeader theme={theme} onToggleTheme={toggle} />
 

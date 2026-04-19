@@ -210,9 +210,7 @@ html.dark .label-rule {
 }
 
 /* Hide the native scrollbar entirely — we render a React-driven overlay
-   in CustomScrollbar.jsx so theme changes reach it instantly. The
-   scrollbar-gutter on html keeps a stable ~10px gutter so the overlay
-   has somewhere to live and content doesn't reflow when scrollable. */
+   in CustomScrollbar.jsx so theme changes reach it instantly. */
 * {
   scrollbar-width: none;
 }
@@ -220,6 +218,15 @@ html.dark .label-rule {
   width: 0;
   height: 0;
   display: none;
+}
+
+/* Custom cursor — hide native cursor on fine-pointer devices when active */
+@media (hover: hover) and (pointer: fine) {
+  html.cursor-custom,
+  html.cursor-custom body,
+  html.cursor-custom * {
+    cursor: none !important;
+  }
 }
 
 /* Section chip fade-in on label change */
