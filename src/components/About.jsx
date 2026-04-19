@@ -16,9 +16,6 @@ export default function About() {
               className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-[filter] duration-700"
             />
           </div>
-          <figcaption className="mt-3 mono-caps text-ink-700 dark:text-ink-300 text-center lg:text-left">
-            {PROFILE.location}
-          </figcaption>
         </figure>
 
         <div className="space-y-6 sm:space-y-7 flex-1 min-w-0 font-serif text-[1.15rem] sm:text-[1.25rem] lg:text-[1.35rem] leading-[1.6] text-ink-900 dark:text-cream-50">
