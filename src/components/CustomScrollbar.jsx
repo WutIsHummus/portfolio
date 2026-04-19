@@ -141,10 +141,10 @@ export default function CustomScrollbar() {
       aria-hidden="true"
       ref={trackRef}
       onPointerDown={onTrackPointerDown}
-      className="hidden lg:block fixed top-0 right-0 w-[14px] h-screen z-[58] cursor-pointer"
+      className="hidden lg:block fixed top-0 right-0 w-[20px] h-screen z-[58] cursor-pointer"
       style={{ touchAction: 'none' }}
     >
-      <div className="absolute right-[6px] top-3 bottom-3 w-px bg-ink-300/40 dark:bg-ink-700/60 pointer-events-none" />
+      <div className="absolute right-[9px] top-3 bottom-3 w-px bg-ink-300/40 dark:bg-ink-700/60 pointer-events-none" />
 
       {/* Thumb hit area: full track width so it's easy to grab */}
       <div
@@ -161,14 +161,14 @@ export default function CustomScrollbar() {
           touchAction: 'none',
         }}
       >
-        {/* Visual thumb: thin pill on the right */}
+        {/* Visual thumb */}
         <div
-          className={`absolute right-[4px] inset-y-0 w-[5px] rounded-full bg-accent dark:bg-accent-light transition-[opacity,background-color] duration-300 ${
+          className={`absolute right-[5px] inset-y-0 w-[9px] rounded-full bg-accent dark:bg-accent-light transition-[opacity,background-color] duration-300 ${
             dragging
               ? 'opacity-100'
               : active
               ? 'opacity-90'
-              : 'opacity-55 group-hover:opacity-90'
+              : 'opacity-60 group-hover:opacity-90'
           }`}
         />
       </div>
