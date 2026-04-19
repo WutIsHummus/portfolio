@@ -6,10 +6,11 @@ const MIN_THUMB = 56;
 export default function CustomScrollbar() {
   const [metrics, setMetrics] = useState({ top: 0, height: 0, visible: false });
   const [active, setActive] = useState(false);
+  const [dragging, setDragging] = useState(false);
   const idleTimer = useRef(null);
-  const dragging = useRef(false);
-  const dragStart = useRef({ y: 0, scrollY: 0 });
+  const dragRef = useRef({ y: 0, scrollY: 0, range: 0, totalScroll: 0 });
   const trackRef = useRef(null);
+  const thumbRef = useRef(null);
 
   useEffect(() => {
     const update = () => {
@@ -36,9 +37,7 @@ export default function CustomScrollbar() {
       update();
       setActive(true);
       if (idleTimer.current) clearTimeout(idleTimer.current);
-      idleTimer.current = setTimeout(() => {
-        if (!dragging.current) setActive(false);
-      }, 900);
+      idleTimer.current = setTimeout(() => setActive(false), 900);
     };
 
     update();
@@ -56,76 +55,61 @@ export default function CustomScrollbar() {
     };
   }, []);
 
-  // Drag the thumb
-  const onThumbMouseDown = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dragging.current = true;
-    dragStart.current = { y: e.clientY, scrollY: window.scrollY };
-    setActive(true);
-    document.body.style.userSelect = 'none';
-    document.body.style.cursor = 'grabbing';
-  };
-
-  useEffect(() => {
-    const onMove = (e) => {
-      if (!dragging.current) return;
-      const html = document.documentElement;
-      const total = html.scrollHeight;
-      const winH = window.innerHeight;
-      const totalScroll = total - winH;
-      if (totalScroll <= 0) return;
-
-      const trackH = winH - PADDING * 2;
-      const ratio = winH / total;
-      const thumbH = Math.max(MIN_THUMB, trackH * ratio);
-      const dragRange = trackH - thumbH;
-      if (dragRange <= 0) return;
-
-      const dy = e.clientY - dragStart.current.y;
-      const scrollPerPx = totalScroll / dragRange;
-      const next = dragStart.current.scrollY + dy * scrollPerPx;
-      window.scrollTo(0, Math.max(0, Math.min(totalScroll, next)));
-    };
-
-    const onUp = () => {
-      if (dragging.current) {
-        dragging.current = false;
-        document.body.style.userSelect = '';
-        document.body.style.cursor = '';
-        if (idleTimer.current) clearTimeout(idleTimer.current);
-        idleTimer.current = setTimeout(() => setActive(false), 900);
-      }
-    };
-
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onUp);
-    return () => {
-      window.removeEventListener('mousemove', onMove);
-      window.removeEventListener('mouseup', onUp);
-    };
-  }, []);
-
-  // Click empty track to jump
-  const onTrackMouseDown = (e) => {
-    if (!trackRef.current) return;
-    const rect = trackRef.current.getBoundingClientRect();
-    const clickY = e.clientY - rect.top;
+  const computeDrag = () => {
     const html = document.documentElement;
     const total = html.scrollHeight;
     const winH = window.innerHeight;
     const totalScroll = total - winH;
-    if (totalScroll <= 0) return;
-
     const trackH = winH - PADDING * 2;
     const ratio = winH / total;
     const thumbH = Math.max(MIN_THUMB, trackH * ratio);
-    const dragRange = trackH - thumbH;
-    if (dragRange <= 0) return;
+    const range = Math.max(1, trackH - thumbH);
+    return { totalScroll, range, thumbH };
+  };
 
-    const adjusted = Math.max(0, Math.min(dragRange, clickY - PADDING - thumbH / 2));
-    const scrollPerPx = totalScroll / dragRange;
-    window.scrollTo({ top: adjusted * scrollPerPx, behavior: 'smooth' });
+  const onThumbPointerDown = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    const { totalScroll, range } = computeDrag();
+    dragRef.current = {
+      y: e.clientY,
+      scrollY: window.scrollY,
+      range,
+      totalScroll,
+    };
+    setDragging(true);
+    setActive(true);
+  };
+
+  const onThumbPointerMove = (e) => {
+    if (!dragging) return;
+    const { y, scrollY, range, totalScroll } = dragRef.current;
+    if (totalScroll <= 0 || range <= 0) return;
+    const dy = e.clientY - y;
+    const next = scrollY + (dy / range) * totalScroll;
+    window.scrollTo(0, Math.max(0, Math.min(totalScroll, next)));
+  };
+
+  const onThumbPointerUp = (e) => {
+    if (!dragging) return;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+    setDragging(false);
+  };
+
+  const onTrackPointerDown = (e) => {
+    if (e.target === thumbRef.current || !trackRef.current) return;
+    const rect = trackRef.current.getBoundingClientRect();
+    const clickY = e.clientY - rect.top;
+    const { totalScroll, range, thumbH } = computeDrag();
+    if (totalScroll <= 0) return;
+    const desired = Math.max(0, Math.min(range, clickY - PADDING - thumbH / 2));
+    window.scrollTo({
+      top: (desired / range) * totalScroll,
+      behavior: 'smooth',
+    });
   };
 
   if (!metrics.visible) return null;
@@ -134,18 +118,24 @@ export default function CustomScrollbar() {
     <div
       aria-hidden="true"
       ref={trackRef}
-      onMouseDown={onTrackMouseDown}
+      onPointerDown={onTrackPointerDown}
       className="hidden lg:block fixed top-0 right-0 w-[14px] h-screen z-[58] cursor-pointer"
+      style={{ touchAction: 'none' }}
     >
       <div className="absolute right-[6px] top-3 bottom-3 w-px bg-ink-300/40 dark:bg-ink-700/60 pointer-events-none" />
       <div
-        onMouseDown={onThumbMouseDown}
-        className={`absolute right-[4px] w-[5px] rounded-full bg-accent dark:bg-accent-light transition-[opacity,background-color] duration-300 cursor-grab active:cursor-grabbing ${
-          active ? 'opacity-90' : 'opacity-55 hover:opacity-80'
-        }`}
+        ref={thumbRef}
+        onPointerDown={onThumbPointerDown}
+        onPointerMove={onThumbPointerMove}
+        onPointerUp={onThumbPointerUp}
+        onPointerCancel={onThumbPointerUp}
+        className={`absolute right-[4px] w-[5px] rounded-full bg-accent dark:bg-accent-light transition-[opacity,background-color] duration-300 ${
+          dragging ? 'cursor-grabbing opacity-100' : 'cursor-grab opacity-55 hover:opacity-90'
+        } ${active && !dragging ? 'opacity-90' : ''}`}
         style={{
           top: `${metrics.top}px`,
           height: `${metrics.height}px`,
+          touchAction: 'none',
         }}
       />
     </div>
