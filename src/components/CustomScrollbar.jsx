@@ -96,7 +96,13 @@ export default function CustomScrollbar() {
     if (totalScroll <= 0 || range <= 0) return;
     const dy = e.clientY - y;
     const next = scrollY + (dy / range) * totalScroll;
-    window.scrollTo(0, Math.max(0, Math.min(totalScroll, next)));
+    // 'instant' bypasses the html { scroll-behavior: smooth } so the page
+    // tracks the cursor 1:1 instead of animating between every pointermove.
+    window.scrollTo({
+      top: Math.max(0, Math.min(totalScroll, next)),
+      left: 0,
+      behavior: 'instant',
+    });
   };
 
   const endDrag = (e) => {
