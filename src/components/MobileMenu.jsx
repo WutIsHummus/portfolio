@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { NAV } from '../data/portfolio.js';
+import ThemeToggle from './ThemeToggle.jsx';
 
-export default function MobileMenu({ active }) {
+export default function MobileMenu({ active, theme, onToggleTheme }) {
   const [open, setOpen] = useState(false);
 
   // Lock body scroll when menu is open
@@ -100,10 +101,11 @@ export default function MobileMenu({ active }) {
             })}
           </ul>
 
-          <div className="mt-14 pt-8 border-t border-ink-300 dark:border-ink-700 flex flex-wrap gap-x-8 gap-y-3 mono-caps text-ink-800 dark:text-cream-100">
+          <div className="mt-14 pt-8 border-t border-ink-300 dark:border-ink-700 flex flex-wrap items-center gap-x-8 gap-y-4 mono-caps text-ink-800 dark:text-cream-100">
             <a href="mailto:alperenaydin1@gmail.com" className="link-underline">Email</a>
             <a href="https://www.linkedin.com/in/alperenaydin1/" className="link-underline" target="_blank" rel="noreferrer">LinkedIn</a>
             <a href="https://github.com/WutIsHummus" className="link-underline" target="_blank" rel="noreferrer">GitHub</a>
+            <ThemeToggle theme={theme} onToggle={onToggleTheme} className="ml-auto" />
           </div>
         </nav>
       </div>

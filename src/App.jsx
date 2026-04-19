@@ -104,10 +104,10 @@ export default function App() {
       <div className="grain" aria-hidden="true" />
       <ScrollIndicator active={active} />
       <CustomScrollbar />
-      <MobileMenu active={active} />
+      <MobileMenu active={active} theme={theme} onToggleTheme={toggle} />
       <CursorTracker />
 
-      <MobileHeader theme={theme} onToggleTheme={toggle} />
+      <MobileHeader />
 
       <div className="lg:flex">
         <Sidebar active={active} theme={theme} onToggleTheme={toggle} />

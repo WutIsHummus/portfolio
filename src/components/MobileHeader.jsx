@@ -1,17 +1,13 @@
 import { PROFILE } from '../data/portfolio.js';
-import ThemeToggle from './ThemeToggle.jsx';
 
-export default function MobileHeader({ theme, onToggleTheme }) {
+export default function MobileHeader() {
   return (
     <header className="lg:hidden px-6 sm:px-10 pt-12 pb-10 border-b border-ink-300 dark:border-ink-700">
-      <div className="flex items-center justify-between gap-3 mb-10 flex-wrap">
-        <div className="flex items-center gap-3">
-          <span className="dot-pulse" aria-hidden="true" />
-          <span className="mono-caps text-ink-800 dark:text-cream-100">
-            Summer &apos;26
-          </span>
-        </div>
-        <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+      <div className="flex items-center gap-3 mb-10">
+        <span className="dot-pulse" aria-hidden="true" />
+        <span className="mono-caps text-ink-800 dark:text-cream-100">
+          Summer &apos;26
+        </span>
       </div>
 
       <h1 className="font-display leading-[0.9] tracking-tightest text-ink-900 dark:text-cream-50">
