@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 180" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <filter id="bloom-big" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="20"/>
+    </filter>
+    <filter id="wave-glow" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="1.6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <radialGradient id="ambient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="180" fill="#070708"/>
+
+  <ellipse cx="400" cy="90" rx="320" ry="34" fill="url(#ambient)" filter="url(#bloom-big)"/>
+
+  <!-- Sine wave: chromatic-aberration trio (cyan, magenta, white).
+       8 alternating arcs: up, down, up, down, up, down, up, down.
+       Starts and ends on baseline y=90 so terminations are clean. -->
+  <g filter="url(#wave-glow)">
+    <path d="M 40 90
+             C 65 60, 105 60, 130 90
+             C 155 120, 195 120, 220 90
+             C 245 60, 285 60, 310 90
+             C 335 120, 375 120, 400 90
+             C 425 60, 465 60, 490 90
+             C 515 120, 555 120, 580 90
+             C 605 60, 645 60, 670 90
+             C 695 120, 735 120, 760 90"
+          fill="none" stroke="#3df4ff" stroke-width="1.8" stroke-linecap="round"
+          opacity="0.85" transform="translate(-2 0)"/>
+    <path d="M 40 90
+             C 65 60, 105 60, 130 90
+             C 155 120, 195 120, 220 90
+             C 245 60, 285 60, 310 90
+             C 335 120, 375 120, 400 90
+             C 425 60, 465 60, 490 90
+             C 515 120, 555 120, 580 90
+             C 605 60, 645 60, 670 90
+             C 695 120, 735 120, 760 90"
+          fill="none" stroke="#ff4adf" stroke-width="1.8" stroke-linecap="round"
+          opacity="0.85" transform="translate(2 0)"/>
+    <path d="M 40 90
+             C 65 60, 105 60, 130 90
+             C 155 120, 195 120, 220 90
+             C 245 60, 285 60, 310 90
+             C 335 120, 375 120, 400 90
+             C 425 60, 465 60, 490 90
+             C 515 120, 555 120, 580 90
+             C 605 60, 645 60, 670 90
+             C 695 120, 735 120, 760 90"
+          fill="none" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+
+  <!-- PHOTON wordmark, sitting OVER the wave -->
+  <text x="400" y="108"
+        text-anchor="middle"
+        font-family="Inter, system-ui, sans-serif"
+        font-weight="600"
+        font-size="60"
+        letter-spacing="14"
+        fill="#f1f3f8">PHOTON</text>
+</svg>

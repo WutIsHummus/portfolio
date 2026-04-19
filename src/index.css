@@ -1,0 +1,239 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --pulse: 139, 58, 31;
+  --sb-thumb: rgba(139, 58, 31, 0.45);
+  --sb-thumb-hover: rgba(139, 58, 31, 0.8);
+  --sb-border: #f8f2e5;
+}
+
+html.dark {
+  color-scheme: dark;
+  --pulse: 224, 122, 74;
+  --sb-thumb: rgba(196, 87, 47, 0.55);
+  --sb-thumb-hover: rgba(196, 87, 47, 0.9);
+  --sb-border: #1a1512;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+html,
+body {
+  background-color: #f8f2e5;
+  color: #1a1512;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 450;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+html.dark,
+html.dark body {
+  background-color: #1a1512;
+  color: #fdfaf4;
+}
+
+/* Fraunces serif body — bump to medium for readability on cream */
+.font-serif {
+  font-weight: 500;
+}
+
+::selection {
+  background-color: #1a1512;
+  color: #f8f2e5;
+}
+
+html.dark ::selection {
+  background-color: #fdfaf4;
+  color: #1a1512;
+}
+
+/* Paper grain overlay */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+html.dark .grain {
+  opacity: 0.08;
+  mix-blend-mode: screen;
+}
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .dot-pulse,
+  .dot-pulse::after {
+    animation: none !important;
+  }
+}
+
+/* Underline-slide hover */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-bottom: 2px;
+}
+
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+.link-underline-static {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-bottom: 2px;
+}
+
+.link-underline-static:hover,
+.link-underline-static:focus-visible {
+  background-size: 0% 1px;
+}
+
+/* Pulsing availability dot */
+.dot-pulse {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  background: rgb(var(--pulse));
+  border-radius: 9999px;
+  display: inline-block;
+}
+
+.dot-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 0 rgba(var(--pulse), 0.6);
+  animation: dot-ripple 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes dot-ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--pulse), 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(var(--pulse), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--pulse), 0);
+  }
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 1px solid #8b3a1f;
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+html.dark *:focus-visible {
+  outline-color: #c4572f;
+}
+
+/* Section labels: hairline rule fills the rest of the row */
+.label-rule {
+  flex: 1;
+  height: 1px;
+  background: #a89e91;
+}
+
+html.dark .label-rule {
+  background: #3d362f;
+}
+
+/* Project card image hover */
+.project-art-wrap {
+  overflow: hidden;
+}
+.project-art-inner {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.group:hover .project-art-inner {
+  transform: scale(1.03);
+}
+
+/* Mono caps utility — bumped weight + darker default for readability */
+.mono-caps {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* Hide the native scrollbar entirely — we render a React-driven overlay
+   in CustomScrollbar.jsx so theme changes reach it instantly. The
+   scrollbar-gutter on html keeps a stable ~10px gutter so the overlay
+   has somewhere to live and content doesn't reflow when scrollable. */
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* Section chip fade-in on label change */
+.chip-fade {
+  animation: chip-fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes chip-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chip-fade {
+    animation: none;
+  }
+}
