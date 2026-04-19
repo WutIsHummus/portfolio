@@ -9,6 +9,7 @@ import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
 import ScrollIndicator from './components/ScrollIndicator.jsx';
 import CustomScrollbar from './components/CustomScrollbar.jsx';
+import MobileMenu from './components/MobileMenu.jsx';
 import { NAV } from './data/portfolio.js';
 
 const THEME_KEY = 'portfolio-theme';
@@ -102,8 +103,9 @@ export default function App() {
       <div className="grain" aria-hidden="true" />
       <ScrollIndicator active={active} />
       <CustomScrollbar />
+      <MobileMenu active={active} />
 
-      <MobileHeader active={active} theme={theme} onToggleTheme={toggle} />
+      <MobileHeader theme={theme} onToggleTheme={toggle} />
 
       <div className="lg:flex">
         <Sidebar active={active} theme={theme} onToggleTheme={toggle} />

@@ -12,13 +12,13 @@ export default function Skills() {
             <h3 className="font-display italic text-accent dark:text-accent-light text-[1.5rem] mb-4">
               {category}
             </h3>
-            <p className="font-serif text-[1.15rem] leading-[1.7] text-ink-900 dark:text-cream-50 max-w-2xl">
+            <p className="font-serif text-[1.05rem] sm:text-[1.15rem] leading-[1.7] text-ink-900 dark:text-cream-50 max-w-2xl">
               {items.map((item, i) => (
-                <span key={item}>
+                <span key={item} className="whitespace-nowrap">
                   {item}
                   {i < items.length - 1 && (
                     <span
-                      className="text-ink-600 dark:text-ink-500 mx-3 select-none"
+                      className="text-ink-600 dark:text-ink-500 mx-2 sm:mx-3 select-none"
                       aria-hidden="true"
                     >
                       ·

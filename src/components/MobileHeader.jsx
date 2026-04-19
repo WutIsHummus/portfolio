@@ -1,7 +1,7 @@
-import { PROFILE, NAV } from '../data/portfolio.js';
+import { PROFILE } from '../data/portfolio.js';
 import ThemeToggle from './ThemeToggle.jsx';
 
-export default function MobileHeader({ active, theme, onToggleTheme }) {
+export default function MobileHeader({ theme, onToggleTheme }) {
   return (
     <header className="lg:hidden px-6 sm:px-10 pt-12 pb-10 border-b border-ink-300 dark:border-ink-700">
       <div className="flex items-center justify-between gap-3 mb-10 flex-wrap">
@@ -26,31 +26,6 @@ export default function MobileHeader({ active, theme, onToggleTheme }) {
       </p>
 
       <p className="mt-4 mono-caps text-ink-700 dark:text-ink-300">◉ {PROFILE.location}</p>
-
-      <nav aria-label="Sections" className="mt-8 -mx-6 sm:-mx-10 px-6 sm:px-10 overflow-x-auto">
-        <ul className="flex gap-6 whitespace-nowrap">
-          {NAV.map((item) => {
-            const isActive = active === item.id;
-            return (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className={`mono-caps ${
-                    isActive
-                      ? 'text-ink-900 dark:text-cream-50'
-                      : 'text-ink-700 dark:text-ink-300'
-                  }`}
-                >
-                  {isActive && (
-                    <span className="text-accent dark:text-accent-light mr-1">●</span>
-                  )}
-                  {item.label}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
     </header>
   );
 }
