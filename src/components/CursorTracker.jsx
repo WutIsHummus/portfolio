@@ -36,7 +36,9 @@ export default function CursorTracker() {
       setHovering(interactive);
     };
 
-    const onLeave = () => {
+    const onLeave = (e) => {
+      // Only hide if leaving the document, not just hovering child elements
+      if (e && e.relatedTarget) return;
       target.current.x = -100;
       target.current.y = -100;
     };
@@ -55,14 +57,17 @@ export default function CursorTracker() {
       raf.current = requestAnimationFrame(animate);
     };
 
-    window.addEventListener('mousemove', onMove, { passive: true });
-    document.addEventListener('mouseover', onOver);
+    // pointermove bubbles even when another element has pointer capture
+    // (e.g. while dragging the scrollbar thumb). mousemove on window can
+    // get paused by Chrome during capture, so pointer events are safer.
+    window.addEventListener('pointermove', onMove, { passive: true });
+    document.addEventListener('pointerover', onOver);
     document.addEventListener('mouseleave', onLeave);
     raf.current = requestAnimationFrame(animate);
 
     return () => {
-      window.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseover', onOver);
+      window.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerover', onOver);
       document.removeEventListener('mouseleave', onLeave);
       document.documentElement.classList.remove('cursor-custom');
       if (raf.current) cancelAnimationFrame(raf.current);
