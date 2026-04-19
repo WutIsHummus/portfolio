@@ -1,13 +1,19 @@
 import { PROFILE } from '../data/portfolio.js';
+import ThemeToggle from './ThemeToggle.jsx';
 
-export default function MobileHeader() {
+export default function MobileHeader({ theme, onToggleTheme }) {
   return (
     <header className="lg:hidden px-6 sm:px-10 pt-12 pb-10 border-b border-ink-300 dark:border-ink-700">
-      <div className="flex items-center gap-3 mb-10">
-        <span className="dot-pulse" aria-hidden="true" />
-        <span className="mono-caps text-ink-800 dark:text-cream-100">
-          Summer &apos;26
-        </span>
+      {/* pr-16 reserves space on the right so the toggle clears the
+          fixed hamburger button (top-5 right-5, 44px wide) */}
+      <div className="flex items-center justify-between gap-3 mb-10 pr-16">
+        <div className="flex items-center gap-3">
+          <span className="dot-pulse" aria-hidden="true" />
+          <span className="mono-caps text-ink-800 dark:text-cream-100">
+            Summer &apos;26
+          </span>
+        </div>
+        <ThemeToggle theme={theme} onToggle={onToggleTheme} />
       </div>
 
       <h1 className="font-display leading-[0.9] tracking-tightest text-ink-900 dark:text-cream-50">
