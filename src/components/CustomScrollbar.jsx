@@ -54,7 +54,7 @@ export default function CustomScrollbar() {
   return (
     <div
       aria-hidden="true"
-      className="fixed top-0 right-[4px] w-[5px] h-screen z-[58] pointer-events-none"
+      className="hidden lg:block fixed top-0 right-[4px] w-[5px] h-screen z-[58] pointer-events-none"
     >
       {/* faint track */}
       <div className="absolute right-[1px] top-3 bottom-3 w-px bg-ink-300/40 dark:bg-ink-700/60" />
