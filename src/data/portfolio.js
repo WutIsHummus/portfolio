@@ -94,7 +94,7 @@ export const PROJECTS = [
     dates: "2025 / Present",
     description:
       "Yocto Linux build configuration for a custom integrated Raspberry Pi CM5 that underpins the Photon telemetry stack. Reproducible, minimal, bootable images tuned for the solar car's embedded environment.",
-    tags: ["Yocto", "Linux", "Raspberry Pi CM4", "Embedded"],
+    tags: ["Yocto", "Linux", "Raspberry Pi CM5", "Embedded"],
     link: "https://github.com/lhr-solar/YoctoPiBuild",
     image: "/projects/yocto.png",
     width: 841,
