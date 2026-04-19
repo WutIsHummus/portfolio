@@ -7,6 +7,7 @@ export default function CustomScrollbar() {
   const [metrics, setMetrics] = useState({ top: 0, height: 0, visible: false });
   const [active, setActive] = useState(false);
   const [dragging, setDragging] = useState(false);
+  const draggingRef = useRef(false);
   const idleTimer = useRef(null);
   const dragRef = useRef({ y: 0, scrollY: 0, range: 0, totalScroll: 0 });
   const trackRef = useRef(null);
@@ -35,9 +36,11 @@ export default function CustomScrollbar() {
 
     const onScroll = () => {
       update();
-      setActive(true);
-      if (idleTimer.current) clearTimeout(idleTimer.current);
-      idleTimer.current = setTimeout(() => setActive(false), 900);
+      if (!draggingRef.current) {
+        setActive(true);
+        if (idleTimer.current) clearTimeout(idleTimer.current);
+        idleTimer.current = setTimeout(() => setActive(false), 900);
+      }
     };
 
     update();
@@ -70,7 +73,9 @@ export default function CustomScrollbar() {
   const onThumbPointerDown = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    e.currentTarget.setPointerCapture(e.pointerId);
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {}
     const { totalScroll, range } = computeDrag();
     dragRef.current = {
       y: e.clientY,
@@ -78,12 +83,15 @@ export default function CustomScrollbar() {
       range,
       totalScroll,
     };
+    draggingRef.current = true;
     setDragging(true);
     setActive(true);
+    document.body.style.userSelect = 'none';
   };
 
   const onThumbPointerMove = (e) => {
-    if (!dragging) return;
+    if (!draggingRef.current) return;
+    e.preventDefault();
     const { y, scrollY, range, totalScroll } = dragRef.current;
     if (totalScroll <= 0 || range <= 0) return;
     const dy = e.clientY - y;
@@ -91,16 +99,27 @@ export default function CustomScrollbar() {
     window.scrollTo(0, Math.max(0, Math.min(totalScroll, next)));
   };
 
-  const onThumbPointerUp = (e) => {
-    if (!dragging) return;
-    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-      e.currentTarget.releasePointerCapture(e.pointerId);
+  const endDrag = (e) => {
+    if (!draggingRef.current) return;
+    if (e && e.currentTarget && typeof e.currentTarget.hasPointerCapture === 'function') {
+      try {
+        if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+          e.currentTarget.releasePointerCapture(e.pointerId);
+        }
+      } catch {}
     }
+    draggingRef.current = false;
     setDragging(false);
+    document.body.style.userSelect = '';
+    if (idleTimer.current) clearTimeout(idleTimer.current);
+    idleTimer.current = setTimeout(() => setActive(false), 900);
   };
 
   const onTrackPointerDown = (e) => {
-    if (e.target === thumbRef.current || !trackRef.current) return;
+    if (e.target === thumbRef.current || (thumbRef.current && thumbRef.current.contains(e.target))) {
+      return;
+    }
+    if (!trackRef.current) return;
     const rect = trackRef.current.getBoundingClientRect();
     const clickY = e.clientY - rect.top;
     const { totalScroll, range, thumbH } = computeDrag();
@@ -123,21 +142,33 @@ export default function CustomScrollbar() {
       style={{ touchAction: 'none' }}
     >
       <div className="absolute right-[6px] top-3 bottom-3 w-px bg-ink-300/40 dark:bg-ink-700/60 pointer-events-none" />
+
+      {/* Thumb hit area: full track width so it's easy to grab */}
       <div
         ref={thumbRef}
         onPointerDown={onThumbPointerDown}
         onPointerMove={onThumbPointerMove}
-        onPointerUp={onThumbPointerUp}
-        onPointerCancel={onThumbPointerUp}
-        className={`absolute right-[4px] w-[5px] rounded-full bg-accent dark:bg-accent-light transition-[opacity,background-color] duration-300 ${
-          dragging ? 'cursor-grabbing opacity-100' : 'cursor-grab opacity-55 hover:opacity-90'
-        } ${active && !dragging ? 'opacity-90' : ''}`}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onLostPointerCapture={endDrag}
+        className={`absolute right-0 w-full ${dragging ? 'cursor-grabbing' : 'cursor-grab'}`}
         style={{
           top: `${metrics.top}px`,
           height: `${metrics.height}px`,
           touchAction: 'none',
         }}
-      />
+      >
+        {/* Visual thumb: thin pill on the right */}
+        <div
+          className={`absolute right-[4px] inset-y-0 w-[5px] rounded-full bg-accent dark:bg-accent-light transition-[opacity,background-color] duration-300 ${
+            dragging
+              ? 'opacity-100'
+              : active
+              ? 'opacity-90'
+              : 'opacity-55 group-hover:opacity-90'
+          }`}
+        />
+      </div>
     </div>
   );
 }
