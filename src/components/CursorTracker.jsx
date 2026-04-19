@@ -76,7 +76,7 @@ export default function CursorTracker() {
       <div
         ref={ringRef}
         aria-hidden="true"
-        className={`pointer-events-none fixed top-0 left-0 z-[100] w-8 h-8 rounded-full border border-accent dark:border-accent-light transition-[transform,opacity,background-color] duration-200 ease-out mix-blend-difference ${
+        className={`pointer-events-none fixed top-0 left-0 z-[100] w-8 h-8 rounded-full border border-accent dark:border-accent-light transition-[transform,opacity,background-color] duration-200 ease-out ${
           hovering ? 'scale-[1.6] bg-accent/10 dark:bg-accent-light/10' : 'scale-100'
         }`}
         style={{ willChange: 'transform' }}
