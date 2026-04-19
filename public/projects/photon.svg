@@ -19,6 +19,9 @@
 
   <rect width="800" height="180" fill="#070708"/>
 
+  <!-- Zoomed content: scale 1.3 around viewBox center (400, 90) -->
+  <g transform="translate(-120 -27) scale(1.3)">
+
   <ellipse cx="400" cy="90" rx="320" ry="34" fill="url(#ambient)" filter="url(#bloom-big)"/>
 
   <!-- Sine wave: chromatic-aberration trio (cyan, magenta, white).
@@ -67,4 +70,6 @@
         font-size="60"
         letter-spacing="14"
         fill="#f1f3f8">PHOTON</text>
+
+  </g>
 </svg>
