@@ -13,7 +13,7 @@ export default function About() {
               src="/projects/me.png"
               alt={`Portrait of ${PROFILE.name}`}
               loading="lazy"
-              className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-[filter] duration-700"
+              className="w-full h-full object-cover object-top scale-125 grayscale-[20%] hover:grayscale-0 transition-[filter] duration-700"
             />
           </div>
         </figure>
