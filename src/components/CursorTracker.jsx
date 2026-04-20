@@ -9,14 +9,8 @@ export default function CursorTracker() {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
   const target = useRef({ x: -100, y: -100 });
-  const ring = useRef({ x: -100, y: -100, scale: 1 });
-  const hoveringRef = useRef(false);
+  const ring = useRef({ x: -100, y: -100 });
   const raf = useRef(null);
-
-  // mirror hovering state into a ref so the rAF loop sees latest value
-  useEffect(() => {
-    hoveringRef.current = hovering;
-  }, [hovering]);
 
   useEffect(() => {
     if (
@@ -48,18 +42,16 @@ export default function CursorTracker() {
     };
 
     const animate = () => {
-      // Dot follows cursor exactly (no lag, sharp pointer)
+      // Position the outer wrappers at the target. Inner divs handle their
+      // own -50%/-50% centering via CSS transform so they stay concentric
+      // even while CSS-driven scale animations are running.
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${target.current.x}px, ${target.current.y}px, 0) translate(-50%, -50%)`;
+        dotRef.current.style.transform = `translate3d(${target.current.x}px, ${target.current.y}px, 0)`;
       }
-      // Ring lerps toward target → soft pursuit lag
       ring.current.x += (target.current.x - ring.current.x) * 0.18;
       ring.current.y += (target.current.y - ring.current.y) * 0.18;
-      // Lerp scale too so hover/unhover transitions are smooth
-      const targetScale = hoveringRef.current ? 1.6 : 1;
-      ring.current.scale += (targetScale - ring.current.scale) * 0.18;
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ring.current.x}px, ${ring.current.y}px, 0) translate(-50%, -50%) scale(${ring.current.scale})`;
+        ringRef.current.style.transform = `translate3d(${ring.current.x}px, ${ring.current.y}px, 0)`;
       }
       raf.current = requestAnimationFrame(animate);
     };
@@ -82,20 +74,32 @@ export default function CursorTracker() {
 
   return (
     <>
+      {/* Outer wrapper handles JS-driven position; inner handles visuals + animation */}
       <div
         ref={ringRef}
         aria-hidden="true"
-        className={`pointer-events-none fixed top-0 left-0 z-[100] w-8 h-8 rounded-full border border-accent dark:border-accent-light transition-[background-color,border-color] duration-300 ease-out ${
-          hovering ? 'bg-accent/10 dark:bg-accent-light/10' : ''
-        }`}
+        className="pointer-events-none fixed top-0 left-0 z-[100]"
         style={{ willChange: 'transform' }}
-      />
+      >
+        <div
+          className={`cursor-ring w-8 h-8 rounded-full border border-accent dark:border-accent-light ${
+            hovering ? 'is-hover' : ''
+          }`}
+        />
+      </div>
+
       <div
         ref={dotRef}
         aria-hidden="true"
-        className="pointer-events-none fixed top-0 left-0 z-[100] w-1.5 h-1.5 rounded-full bg-accent dark:bg-accent-light"
+        className="pointer-events-none fixed top-0 left-0 z-[100]"
         style={{ willChange: 'transform' }}
-      />
+      >
+        <div
+          className={`cursor-dot rounded-full bg-accent dark:bg-accent-light ${
+            hovering ? 'is-hover' : ''
+          }`}
+        />
+      </div>
     </>
   );
 }
