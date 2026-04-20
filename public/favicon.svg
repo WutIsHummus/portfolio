@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .bg { fill: #f8f2e5; }
+    .text { fill: #8b3a1f; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1a1512; }
+      .text { fill: #c4572f; }
+    }
+  </style>
+  <rect class="bg" width="64" height="64" rx="10" />
+  <text
+    x="32"
+    y="50"
+    class="text"
+    text-anchor="middle"
+    font-family="'Instrument Serif', 'Cormorant Garamond', 'Times New Roman', Georgia, serif"
+    font-size="52"
+    font-weight="400"
+    font-style="italic"
+  >AA</text>
+</svg>
