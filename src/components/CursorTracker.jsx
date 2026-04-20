@@ -42,16 +42,13 @@ export default function CursorTracker() {
     };
 
     const animate = () => {
-      // Position the outer wrappers at the target. Inner divs handle their
-      // own -50%/-50% centering via CSS transform so they stay concentric
-      // even while CSS-driven scale animations are running.
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${target.current.x}px, ${target.current.y}px, 0)`;
+        dotRef.current.style.transform = `translate3d(${target.current.x}px, ${target.current.y}px, 0) translate(-50%, -50%)`;
       }
       ring.current.x += (target.current.x - ring.current.x) * 0.18;
       ring.current.y += (target.current.y - ring.current.y) * 0.18;
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ring.current.x}px, ${ring.current.y}px, 0)`;
+        ringRef.current.style.transform = `translate3d(${ring.current.x}px, ${ring.current.y}px, 0) translate(-50%, -50%)`;
       }
       raf.current = requestAnimationFrame(animate);
     };
@@ -74,32 +71,22 @@ export default function CursorTracker() {
 
   return (
     <>
-      {/* Outer wrapper handles JS-driven position; inner handles visuals + animation */}
       <div
         ref={ringRef}
         aria-hidden="true"
-        className="pointer-events-none fixed top-0 left-0 z-[100]"
+        className={`pointer-events-none fixed top-0 left-0 z-[100] w-8 h-8 rounded-full border border-accent dark:border-accent-light transition-[transform,opacity,background-color] duration-200 ease-out ${
+          hovering ? 'scale-[1.6] bg-accent/10 dark:bg-accent-light/10' : 'scale-100'
+        }`}
         style={{ willChange: 'transform' }}
-      >
-        <div
-          className={`cursor-ring w-8 h-8 rounded-full border border-accent dark:border-accent-light ${
-            hovering ? 'is-hover' : ''
-          }`}
-        />
-      </div>
-
+      />
       <div
         ref={dotRef}
         aria-hidden="true"
-        className="pointer-events-none fixed top-0 left-0 z-[100]"
+        className={`pointer-events-none fixed top-0 left-0 z-[100] w-1.5 h-1.5 rounded-full bg-accent dark:bg-accent-light transition-opacity duration-200 ${
+          hovering ? 'opacity-0' : 'opacity-100'
+        }`}
         style={{ willChange: 'transform' }}
-      >
-        <div
-          className={`cursor-dot rounded-full bg-accent dark:bg-accent-light ${
-            hovering ? 'is-hover' : ''
-          }`}
-        />
-      </div>
+      />
     </>
   );
 }
