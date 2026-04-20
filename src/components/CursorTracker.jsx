@@ -42,13 +42,16 @@ export default function CursorTracker() {
     };
 
     const animate = () => {
+      // Position the outer wrappers at the target. Inner divs handle their
+      // own -50%/-50% centering via CSS transform so they stay concentric
+      // even while CSS-driven scale animations are running.
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${target.current.x}px, ${target.current.y}px, 0) translate(-50%, -50%)`;
+        dotRef.current.style.transform = `translate3d(${target.current.x}px, ${target.current.y}px, 0)`;
       }
       ring.current.x += (target.current.x - ring.current.x) * 0.18;
       ring.current.y += (target.current.y - ring.current.y) * 0.18;
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ring.current.x}px, ${ring.current.y}px, 0) translate(-50%, -50%)`;
+        ringRef.current.style.transform = `translate3d(${ring.current.x}px, ${ring.current.y}px, 0)`;
       }
       raf.current = requestAnimationFrame(animate);
     };
