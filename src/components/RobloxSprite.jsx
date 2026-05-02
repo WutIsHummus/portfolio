@@ -31,7 +31,10 @@ export default function RobloxSprite({
 }) {
   const [active, setActive] = useState(!section);
   const videoRef = useRef(null);
-  const mp4Src = src.replace(/\.webm$/, '.mp4');
+  // Always serve MP4 — universal codec support including iOS Safari.
+  // The MP4 is composited on the page bg (#0A0D11) so it matches every
+  // placement visually without needing alpha-channel video support.
+  const videoSrc = src.replace(/\.webm$/, '.mp4');
 
   useEffect(() => {
     if (!section) return;
@@ -54,13 +57,6 @@ export default function RobloxSprite({
 
   if (!active) return null;
 
-  const sources = (
-    <>
-      <source src={src} type="video/webm" />
-      <source src={mp4Src} type="video/mp4" />
-    </>
-  );
-
   if (corner) {
     const positionStyle = {
       [corner.includes('top') ? 'top' : 'bottom']: offset,
@@ -73,6 +69,7 @@ export default function RobloxSprite({
     return (
       <video
         ref={videoRef}
+        src={videoSrc}
         autoPlay
         loop
         muted
@@ -80,15 +77,14 @@ export default function RobloxSprite({
         className={`roblox-sprite animate-sprite-pop ${className}`}
         style={positionStyle}
         aria-hidden="true"
-      >
-        {sources}
-      </video>
+      />
     );
   }
 
   return (
     <video
       ref={videoRef}
+      src={videoSrc}
       autoPlay
       loop
       muted
@@ -96,8 +92,6 @@ export default function RobloxSprite({
       className={`pointer-events-none select-none ${className}`}
       style={flip ? { transform: 'scaleX(-1)' } : undefined}
       aria-hidden="true"
-    >
-      {sources}
-    </video>
+    />
   );
 }

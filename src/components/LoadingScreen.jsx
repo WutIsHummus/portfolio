@@ -31,6 +31,7 @@ export default function LoadingScreen({ onDone }) {
       <div className="flex flex-col items-center gap-2">
         {videoOk && (
           <video
+            src={LOADING.src.replace(/\.webm$/, '.mp4')}
             autoPlay
             loop
             muted
@@ -39,13 +40,7 @@ export default function LoadingScreen({ onDone }) {
             onError={() => setVideoOk(false)}
             className="w-[160px] h-[160px] object-contain"
             aria-hidden="true"
-          >
-            <source src={LOADING.src} type="video/webm" />
-            <source
-              src={LOADING.src.replace(/\.webm$/, '.mp4')}
-              type="video/mp4"
-            />
-          </video>
+          />
         )}
         <div
           className={`font-mono text-cream-100 lowercase ${
