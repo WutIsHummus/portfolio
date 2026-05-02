@@ -51,8 +51,17 @@ export default function RobloxSprite({
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (active) v.play().catch(() => {});
-    else v.pause();
+    // iOS Safari autoplay defenses: mute via property + set legacy attrs
+    v.muted = true;
+    v.setAttribute('webkit-playsinline', '');
+    v.setAttribute('playsinline', '');
+    if (active) {
+      const tryPlay = () => v.play().catch(() => {});
+      if (v.readyState >= 2) tryPlay();
+      else v.addEventListener('loadedmetadata', tryPlay, { once: true });
+    } else {
+      v.pause();
+    }
   }, [active]);
 
   if (!active) return null;
@@ -73,8 +82,13 @@ export default function RobloxSprite({
         autoPlay
         loop
         muted
+        defaultMuted
         playsInline
-        className={`roblox-sprite animate-sprite-pop ${className}`}
+        preload="auto"
+        controls={false}
+        disablePictureInPicture
+        disableRemotePlayback
+        className={`roblox-sprite animate-sprite-pop pointer-events-none ${className}`}
         style={positionStyle}
         aria-hidden="true"
       />
@@ -88,7 +102,12 @@ export default function RobloxSprite({
       autoPlay
       loop
       muted
+      defaultMuted
       playsInline
+      preload="auto"
+      controls={false}
+      disablePictureInPicture
+      disableRemotePlayback
       className={`pointer-events-none select-none ${className}`}
       style={flip ? { transform: 'scaleX(-1)' } : undefined}
       aria-hidden="true"
