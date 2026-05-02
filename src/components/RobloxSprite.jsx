@@ -10,7 +10,8 @@ import { useEffect, useRef, useState } from 'react';
  *     controls placement (flex / absolute positioning / etc).
  *
  * Other props:
- *   src      — webm file path (relative to public/)
+ *   src      — webm file path (relative to public/). A sibling .mp4 is auto-derived as a
+ *              fallback for browsers without VP9-alpha webm support (notably iOS Safari).
  *   size     — px (corner mode only; default 96)
  *   offset   — CSS distance from edges (corner mode only; default '1.5rem')
  *   section  — optional section id; sprite mounts only while that section is in view
@@ -30,6 +31,7 @@ export default function RobloxSprite({
 }) {
   const [active, setActive] = useState(!section);
   const videoRef = useRef(null);
+  const mp4Src = src.replace(/\.webm$/, '.mp4');
 
   useEffect(() => {
     if (!section) return;
@@ -52,8 +54,14 @@ export default function RobloxSprite({
 
   if (!active) return null;
 
+  const sources = (
+    <>
+      <source src={src} type="video/webm" />
+      <source src={mp4Src} type="video/mp4" />
+    </>
+  );
+
   if (corner) {
-    // Fixed-corner mode: pinned to viewport.
     const positionStyle = {
       [corner.includes('top') ? 'top' : 'bottom']: offset,
       [corner.includes('right') ? 'right' : 'left']: offset,
@@ -65,7 +73,6 @@ export default function RobloxSprite({
     return (
       <video
         ref={videoRef}
-        src={src}
         autoPlay
         loop
         muted
@@ -73,15 +80,15 @@ export default function RobloxSprite({
         className={`roblox-sprite animate-sprite-pop ${className}`}
         style={positionStyle}
         aria-hidden="true"
-      />
+      >
+        {sources}
+      </video>
     );
   }
 
-  // Inline mode: parent positions/sizes via className.
   return (
     <video
       ref={videoRef}
-      src={src}
       autoPlay
       loop
       muted
@@ -89,6 +96,8 @@ export default function RobloxSprite({
       className={`pointer-events-none select-none ${className}`}
       style={flip ? { transform: 'scaleX(-1)' } : undefined}
       aria-hidden="true"
-    />
+    >
+      {sources}
+    </video>
   );
 }

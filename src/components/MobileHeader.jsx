@@ -6,7 +6,7 @@ export default function MobileHeader() {
       <div className="flex items-center gap-3 mb-10 pr-16">
         <span className="dot-pulse" aria-hidden="true" />
         <span className="mono-caps text-ink-800 dark:text-cream-100">
-          Online / Summer &apos;26
+          Open to Work · Summer &apos;26
         </span>
       </div>
 

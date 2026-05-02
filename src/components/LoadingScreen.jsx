@@ -3,9 +3,9 @@ import { LOADING } from '../data/portfolio.js';
 
 export default function LoadingScreen({ onDone }) {
   const [hidden, setHidden] = useState(false);
+  const [videoOk, setVideoOk] = useState(true);
   const startedAt = useRef(performance.now());
 
-  // Pick one message per page load
   const message = useMemo(
     () => LOADING.messages[Math.floor(Math.random() * LOADING.messages.length)],
     [],
@@ -29,16 +29,29 @@ export default function LoadingScreen({ onDone }) {
       aria-label="Loading"
     >
       <div className="flex flex-col items-center gap-2">
-        <video
-          src={LOADING.src}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-[160px] h-[160px] object-contain"
-          aria-hidden="true"
-        />
-        <div className="font-mono text-sm text-cream-100 lowercase">
+        {videoOk && (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            onError={() => setVideoOk(false)}
+            className="w-[160px] h-[160px] object-contain"
+            aria-hidden="true"
+          >
+            <source src={LOADING.src} type="video/webm" />
+            <source
+              src={LOADING.src.replace(/\.webm$/, '.mp4')}
+              type="video/mp4"
+            />
+          </video>
+        )}
+        <div
+          className={`font-mono text-cream-100 lowercase ${
+            videoOk ? 'text-sm' : 'text-base'
+          }`}
+        >
           {message}
           <span className="loading-dots" aria-hidden="true" />
         </div>
