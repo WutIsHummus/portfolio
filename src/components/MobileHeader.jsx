@@ -1,29 +1,23 @@
 import { PROFILE } from '../data/portfolio.js';
-import ThemeToggle from './ThemeToggle.jsx';
 
-export default function MobileHeader({ theme, onToggleTheme }) {
+export default function MobileHeader() {
   return (
-    <header className="lg:hidden px-6 sm:px-10 pt-12 pb-10 border-b border-ink-300 dark:border-ink-700">
-      {/* pr-16 reserves space on the right so the toggle clears the
-          fixed hamburger button (top-5 right-5, 44px wide) */}
-      <div className="flex items-center justify-between gap-3 mb-10 pr-16">
-        <div className="flex items-center gap-3">
-          <span className="dot-pulse" aria-hidden="true" />
-          <span className="mono-caps text-ink-800 dark:text-cream-100">
-            Summer &apos;26
-          </span>
-        </div>
-        <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+    <header className="lg:hidden px-6 sm:px-10 pt-12 pb-10 border-b border-ink-300 dark:border-ink-400">
+      <div className="flex items-center gap-3 mb-10 pr-16">
+        <span className="dot-pulse" aria-hidden="true" />
+        <span className="mono-caps text-ink-800 dark:text-cream-100">
+          Online / Summer &apos;26
+        </span>
       </div>
 
-      <h1 className="font-display leading-[0.9] tracking-tightest text-ink-900 dark:text-cream-50">
+      <h1 className="font-display font-bold leading-[0.92] tracking-tightest text-ink-900 dark:text-cream-50">
         <span className="block text-[3rem] sm:text-[4rem] md:text-[4.5rem]">Alperen</span>
-        <span className="block text-[3rem] sm:text-[4rem] md:text-[4.5rem] italic text-accent dark:text-accent-light">
+        <span className="block text-[3rem] sm:text-[4rem] md:text-[4.5rem] text-accent dark:text-accent-light glow-accent">
           Aydin.
         </span>
       </h1>
 
-      <p className="mt-6 max-w-md font-serif text-[1.05rem] sm:text-[1.1rem] leading-[1.6] text-ink-900 dark:text-cream-100">
+      <p className="mt-6 max-w-md font-sans text-[1.05rem] sm:text-[1.1rem] leading-[1.6] text-ink-900 dark:text-cream-100">
         {PROFILE.tagline}
       </p>
 

@@ -10,7 +10,56 @@ export const PROFILE = {
   phone: "713-307-2507",
   linkedin: "https://www.linkedin.com/in/alperenaydin1/",
   github: "https://github.com/WutIsHummus",
+  roblox: {
+    userId: 94103785,
+    username: "AlpeenDev",
+  },
 };
+
+// Loading screen config — the hero asset that plays on first paint.
+export const LOADING = {
+  src: "/animations/loading.webm",
+  // Minimum time (ms) the loading screen stays up so the animation
+  // gets a clean run even on a fast connection.
+  minDurationMs: 1800,
+  // The little line of text under the character. Pick whichever feels right.
+  messages: [
+    "one sec",
+    "loading",
+    "brb",
+    "almost there",
+  ],
+};
+
+// Ambient Roblox sprite placements (fixed-corner, viewport-pinned).
+// Each entry is mounted via App.jsx and only renders while its `section` is in view.
+//   src     — webm path (relative to public/)
+//   corner  — 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+//   size    — px
+//   offset  — CSS distance from the edges
+//   section — optional section id; only shown while in view
+//   flip    — horizontally mirror the clip
+// (For inline placements anchored to specific elements, use <RobloxSprite> directly
+// inside that component instead of adding entries here.)
+export const ANIMATIONS = [
+  {
+    id: "fly-experience",
+    src: "/animations/fly1.webm",
+    corner: "top-right",
+    size: 160,
+    offset: "2rem",
+    section: "experience",
+  },
+  {
+    id: "fly-work",
+    src: "/animations/fly2.webm",
+    corner: "bottom-right",
+    size: 170,
+    offset: "2.5rem",
+    section: "work",
+    flip: true,
+  },
+];
 
 export const EDUCATION = {
   school: "The University of Texas at Austin",

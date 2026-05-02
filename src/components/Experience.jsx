@@ -10,14 +10,14 @@ export default function Experience() {
         {EXPERIENCE.map((role, i) => (
           <article
             key={role.company + role.role}
-            className={`reveal py-10 ${i !== 0 ? 'border-t border-ink-300 dark:border-ink-700' : ''}`}
+            className={`reveal py-10 ${i !== 0 ? 'border-t border-ink-300 dark:border-ink-400' : ''}`}
           >
             <header className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-4">
               <div>
-                <h3 className="font-serif font-medium text-[1.4rem] sm:text-[1.7rem] leading-tight text-ink-900 dark:text-cream-50">
+                <h3 className="font-sans font-medium text-[1.4rem] sm:text-[1.7rem] leading-tight text-ink-900 dark:text-cream-50">
                   {role.role}
                 </h3>
-                <p className="font-display italic text-accent dark:text-accent-light text-[1.2rem] sm:text-[1.4rem] leading-tight mt-1">
+                <p className="font-display font-semibold text-accent dark:text-accent-light text-[1.2rem] sm:text-[1.4rem] leading-tight mt-1">
                   {role.company}
                 </p>
               </div>
@@ -26,7 +26,7 @@ export default function Experience() {
               </span>
             </header>
 
-            <p className="font-serif text-[1rem] sm:text-[1.08rem] leading-[1.65] text-ink-900 dark:text-cream-100 max-w-2xl">
+            <p className="font-sans text-[1rem] sm:text-[1.08rem] leading-[1.65] text-ink-900 dark:text-cream-100 max-w-2xl">
               {role.blurb}
             </p>
 
@@ -34,7 +34,7 @@ export default function Experience() {
               {role.bullets.map((b, j) => (
                 <li
                   key={j}
-                  className="flex gap-3 font-serif text-[0.98rem] sm:text-[1.02rem] leading-[1.65] text-ink-900 dark:text-cream-100"
+                  className="flex gap-3 font-sans text-[0.98rem] sm:text-[1.02rem] leading-[1.65] text-ink-900 dark:text-cream-100"
                 >
                   <span
                     className="text-accent dark:text-accent-light mt-1 select-none"

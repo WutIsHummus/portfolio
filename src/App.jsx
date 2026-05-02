@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from './components/Sidebar.jsx';
 import MobileHeader from './components/MobileHeader.jsx';
 import About from './components/About.jsx';
@@ -11,16 +11,9 @@ import ScrollIndicator from './components/ScrollIndicator.jsx';
 import CustomScrollbar from './components/CustomScrollbar.jsx';
 import MobileMenu from './components/MobileMenu.jsx';
 import CursorTracker from './components/CursorTracker.jsx';
-import { NAV } from './data/portfolio.js';
-
-const THEME_KEY = 'portfolio-theme';
-
-function getInitialTheme() {
-  if (typeof document !== 'undefined' && document.documentElement.classList.contains('dark')) {
-    return 'dark';
-  }
-  return 'light';
-}
+import LoadingScreen from './components/LoadingScreen.jsx';
+import RobloxSprite from './components/RobloxSprite.jsx';
+import { NAV, ANIMATIONS } from './data/portfolio.js';
 
 function useScrollSpy(ids, offset = 180) {
   const [active, setActive] = useState(ids[0]);
@@ -68,51 +61,29 @@ function useReveal() {
   }, []);
 }
 
-function useTheme() {
-  const [theme, setTheme] = useState(getInitialTheme);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'dark' ? '#1a1512' : '#f8f2e5');
-    try {
-      window.localStorage.setItem(THEME_KEY, theme);
-    } catch (e) {}
-
-  }, [theme]);
-
-  const toggle = useCallback(() => {
-    setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
-  }, []);
-
-  return { theme, toggle };
-}
-
 export default function App() {
   const ids = NAV.map((n) => n.id);
   const active = useScrollSpy(ids);
-  const { theme, toggle } = useTheme();
+  const [loaded, setLoaded] = useState(false);
   useReveal();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
+
+      <div className="grid-bg" aria-hidden="true" />
       <div className="grain" aria-hidden="true" />
       <ScrollIndicator active={active} />
       <CustomScrollbar />
       <MobileMenu active={active} />
       <CursorTracker />
 
-      <MobileHeader theme={theme} onToggleTheme={toggle} />
+      <MobileHeader />
 
-      <div className="lg:flex">
-        <Sidebar active={active} theme={theme} onToggleTheme={toggle} />
+      <div className="lg:flex relative">
+        <Sidebar active={active} />
 
-        <main className="lg:w-[60%] lg:ml-[40%] px-6 sm:px-10 lg:px-16 xl:px-24 pt-8 lg:pt-32 pb-32">
+        <main className="lg:w-[60%] lg:ml-[40%] px-6 sm:px-10 lg:px-16 xl:px-24 pt-8 lg:pt-32 pb-32 relative z-10">
           <About />
           <Experience />
           <Work />
@@ -121,6 +92,19 @@ export default function App() {
           <Footer />
         </main>
       </div>
+
+      {ANIMATIONS.map((a) => (
+        <RobloxSprite
+          key={a.id}
+          src={a.src}
+          corner={a.corner}
+          size={a.size}
+          offset={a.offset}
+          section={a.section}
+          delay={a.delay}
+          flip={a.flip}
+        />
+      ))}
     </div>
   );
 }

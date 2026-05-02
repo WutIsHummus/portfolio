@@ -15,14 +15,14 @@ export default function Work() {
 
       <div className="reveal mt-24">
         <h3 className="mono-caps text-ink-700 dark:text-ink-300 mb-6">Publications</h3>
-        <ul className="space-y-5 border-t border-ink-300 dark:border-ink-700 pt-6">
+        <ul className="space-y-5 border-t border-ink-300 dark:border-ink-400 pt-6">
           {PUBLICATIONS.map((p) => (
             <li
               key={p.title}
-              className="font-serif text-ink-900 dark:text-cream-100 leading-[1.65] max-w-2xl"
+              className="font-sans text-ink-900 dark:text-cream-100 leading-[1.65] max-w-2xl"
             >
               <p className="text-[1.1rem] text-ink-900 dark:text-cream-50">{p.title}</p>
-              <p className="italic text-accent dark:text-accent-light mt-1">{p.authors}</p>
+              <p className="text-accent dark:text-accent-light font-semibold mt-1">{p.authors}</p>
               <p className="text-ink-800 dark:text-ink-300 mt-1">
                 {p.venue}, {p.year}.{' '}
                 <a

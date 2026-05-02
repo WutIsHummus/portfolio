@@ -31,7 +31,7 @@ export default function ProjectCard({ project }) {
         <div>
           <TitleTag
             {...titleProps}
-            className={`font-serif font-medium text-[1.4rem] sm:text-[1.7rem] leading-tight text-ink-900 dark:text-cream-50 ${
+            className={`font-sans font-medium text-[1.4rem] sm:text-[1.7rem] leading-tight text-ink-900 dark:text-cream-50 ${
               titleProps.href ? 'link-underline inline-block' : ''
             }`}
           >
@@ -40,7 +40,7 @@ export default function ProjectCard({ project }) {
               <span aria-hidden="true" className="text-accent dark:text-accent-light ml-2">↗</span>
             )}
           </TitleTag>
-          <p className="font-display italic text-accent dark:text-accent-light text-[1.05rem] sm:text-[1.25rem] leading-tight mt-1">
+          <p className="font-display font-semibold text-accent dark:text-accent-light text-[1.05rem] sm:text-[1.25rem] leading-tight mt-1">
             {project.subtitle}
           </p>
         </div>
@@ -49,7 +49,7 @@ export default function ProjectCard({ project }) {
         </span>
       </div>
 
-      <p className="mt-4 font-serif text-[1rem] sm:text-[1.05rem] leading-[1.65] text-ink-900 dark:text-cream-100 max-w-2xl">
+      <p className="mt-4 font-sans text-[1rem] sm:text-[1.05rem] leading-[1.65] text-ink-900 dark:text-cream-100 max-w-2xl">
         {project.description}
       </p>
 
@@ -57,7 +57,7 @@ export default function ProjectCard({ project }) {
         {project.tags.map((t) => (
           <li
             key={t}
-            className="mono-caps text-ink-800 dark:text-cream-100 border border-ink-400 dark:border-ink-700 rounded-full px-3 py-1"
+            className="hud-pill text-ink-800 dark:text-cream-100"
           >
             {t}
           </li>

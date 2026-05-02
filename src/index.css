@@ -4,18 +4,20 @@
 
 :root {
   color-scheme: light;
-  --pulse: 139, 58, 31;
-  --sb-thumb: rgba(139, 58, 31, 0.45);
-  --sb-thumb-hover: rgba(139, 58, 31, 0.8);
-  --sb-border: #f8f2e5;
+  --pulse: 0, 162, 255;
+  --sb-thumb: rgba(0, 162, 255, 0.45);
+  --sb-thumb-hover: rgba(0, 162, 255, 0.85);
+  --sb-border: #EBF0F6;
+  --grid-line: rgba(10, 13, 17, 0.07);
 }
 
 html.dark {
   color-scheme: dark;
-  --pulse: 224, 122, 74;
-  --sb-thumb: rgba(196, 87, 47, 0.55);
-  --sb-thumb-hover: rgba(196, 87, 47, 0.9);
-  --sb-border: #1a1512;
+  --pulse: 82, 197, 255;
+  --sb-thumb: rgba(82, 197, 255, 0.55);
+  --sb-thumb-hover: rgba(82, 197, 255, 0.95);
+  --sb-border: #0A0D11;
+  --grid-line: rgba(82, 197, 255, 0.06);
 }
 
 html {
@@ -29,10 +31,10 @@ body {
 
 html,
 body {
-  background-color: #f8f2e5;
-  color: #1a1512;
+  background-color: #EBF0F6;
+  color: #0A0D11;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-weight: 450;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -41,39 +43,47 @@ body {
 
 html.dark,
 html.dark body {
-  background-color: #1a1512;
-  color: #fdfaf4;
-}
-
-/* Fraunces serif body — bump to medium for readability on cream */
-.font-serif {
-  font-weight: 500;
+  background-color: #0A0D11;
+  color: #F7F8FA;
 }
 
 ::selection {
-  background-color: #1a1512;
-  color: #f8f2e5;
+  background-color: #00A2FF;
+  color: #FFFFFF;
 }
 
 html.dark ::selection {
-  background-color: #fdfaf4;
-  color: #1a1512;
+  background-color: #52C5FF;
+  color: #0A0D11;
 }
 
-/* Paper grain overlay */
+/* Subtle level-editor grid background — sits behind content, not over it */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 20%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 20%, transparent 90%);
+}
+
+/* Tiny film grain — kept very subtle for tactile feel */
 .grain {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 50;
-  opacity: 0.04;
-  mix-blend-mode: multiply;
+  opacity: 0.025;
+  mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
 html.dark .grain {
-  opacity: 0.08;
-  mix-blend-mode: screen;
+  opacity: 0.05;
 }
 
 /* Reveal animation */
@@ -143,6 +153,7 @@ html.dark .grain {
   background: rgb(var(--pulse));
   border-radius: 9999px;
   display: inline-block;
+  box-shadow: 0 0 12px rgba(var(--pulse), 0.6);
 }
 
 .dot-pulse::after {
@@ -168,24 +179,24 @@ html.dark .grain {
 
 /* Focus ring */
 *:focus-visible {
-  outline: 1px solid #8b3a1f;
+  outline: 1px solid #00A2FF;
   outline-offset: 3px;
   border-radius: 1px;
 }
 
 html.dark *:focus-visible {
-  outline-color: #c4572f;
+  outline-color: #52C5FF;
 }
 
 /* Section labels: hairline rule fills the rest of the row */
 .label-rule {
   flex: 1;
   height: 1px;
-  background: #a89e91;
+  background: #D9DEE5;
 }
 
 html.dark .label-rule {
-  background: #3d362f;
+  background: #2A2E36;
 }
 
 /* Project card image hover */
@@ -200,17 +211,16 @@ html.dark .label-rule {
   transform: scale(1.03);
 }
 
-/* Mono caps utility — bumped weight + darker default for readability */
+/* HUD-style mono-caps — JetBrains Mono uppercase */
 .mono-caps {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 
-/* Hide the native scrollbar entirely — we render a React-driven overlay
-   in CustomScrollbar.jsx so theme changes reach it instantly. */
+/* Hide native scrollbar — React-driven overlay handles it */
 * {
   scrollbar-width: none;
 }
@@ -247,4 +257,99 @@ html.dark .label-rule {
   .chip-fade {
     animation: none;
   }
+}
+
+/* === Game-dev / Roblox vibe utilities === */
+
+/* "Level chip" pill: tiny HUD tag for project metadata */
+.hud-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.hud-pill-filled {
+  background: #00A2FF;
+  color: #FFFFFF;
+  border-color: #00A2FF;
+}
+
+html.dark .hud-pill-filled {
+  background: #52C5FF;
+  color: #0A0D11;
+  border-color: #52C5FF;
+}
+
+/* Glow utility for accent-color text/elements */
+.glow-accent {
+  text-shadow: 0 0 24px rgba(0, 162, 255, 0.4);
+}
+
+html.dark .glow-accent {
+  text-shadow: 0 0 24px rgba(82, 197, 255, 0.5);
+}
+
+/* Loading screen — minimal: character + one line of text, fades out */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0A0D11;
+  color: #F7F8FA;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.loading-screen.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Animated three-dot ellipsis next to the loading text */
+.loading-dots::after {
+  content: '';
+  display: inline-block;
+  width: 1.2em;
+  text-align: left;
+  animation: loading-dots 1.4s steps(4, end) infinite;
+}
+
+@keyframes loading-dots {
+  0%   { content: ''; }
+  25%  { content: '.'; }
+  50%  { content: '..'; }
+  75%  { content: '...'; }
+  100% { content: ''; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-dots::after {
+    animation: none;
+    content: '...';
+  }
+}
+
+/* Roblox sprite wrapper: floating decorative video */
+.roblox-sprite {
+  position: fixed;
+  pointer-events: none;
+  z-index: 30;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.25));
+}
+
+html.dark .roblox-sprite {
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.6));
 }

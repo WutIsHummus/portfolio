@@ -34,7 +34,7 @@ export default function MobileMenu({ active }) {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
-        className="lg:hidden fixed top-5 right-5 z-[80] w-11 h-11 flex items-center justify-center rounded-full border border-ink-400 dark:border-ink-700 bg-cream-100/90 dark:bg-ink-900/90 backdrop-blur-sm shadow-sm transition-colors"
+        className="lg:hidden fixed top-5 right-5 z-[80] w-11 h-11 flex items-center justify-center rounded-full border border-ink-400 dark:border-ink-400 bg-cream-100/90 dark:bg-ink-900/90 backdrop-blur-sm shadow-sm transition-colors"
       >
         <span className="relative w-5 h-4 block" aria-hidden="true">
           <span
@@ -88,7 +88,7 @@ export default function MobileMenu({ active }) {
                     <span
                       className={`font-display tracking-tightest leading-[0.95] text-[3.25rem] sm:text-[3.75rem] transition-colors ${
                         isActive
-                          ? 'italic text-accent dark:text-accent-light'
+                          ? 'text-accent dark:text-accent-light glow-accent font-bold'
                           : 'text-ink-900 dark:text-cream-50 group-hover:text-accent dark:group-hover:text-accent-light'
                       }`}
                     >
@@ -100,7 +100,7 @@ export default function MobileMenu({ active }) {
             })}
           </ul>
 
-          <div className="mt-14 pt-8 border-t border-ink-300 dark:border-ink-700 flex flex-wrap gap-x-8 gap-y-3 mono-caps text-ink-800 dark:text-cream-100">
+          <div className="mt-14 pt-8 border-t border-ink-300 dark:border-ink-400 flex flex-wrap gap-x-8 gap-y-3 mono-caps text-ink-800 dark:text-cream-100">
             <a href="mailto:alperenaydin1@gmail.com" className="link-underline">Email</a>
             <a href="https://www.linkedin.com/in/alperenaydin1/" className="link-underline" target="_blank" rel="noreferrer">LinkedIn</a>
             <a href="https://github.com/WutIsHummus" className="link-underline" target="_blank" rel="noreferrer">GitHub</a>

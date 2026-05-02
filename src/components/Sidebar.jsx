@@ -1,28 +1,36 @@
 import { PROFILE, NAV } from '../data/portfolio.js';
-import ThemeToggle from './ThemeToggle.jsx';
+import RobloxSprite from './RobloxSprite.jsx';
 
-export default function Sidebar({ active, theme, onToggleTheme }) {
+export default function Sidebar({ active }) {
   return (
-    <aside className="hidden lg:flex fixed top-0 left-0 h-screen w-[40%] flex-col justify-between px-16 xl:px-24 py-16 border-r border-ink-300 dark:border-ink-700">
+    <aside className="hidden lg:flex fixed top-0 left-0 h-screen w-[40%] flex-col justify-between px-16 xl:px-24 py-16 border-r border-ink-300 dark:border-ink-400">
       <div>
-        <div className="flex items-center justify-between gap-4 mb-16">
-          <div className="flex items-center gap-3">
-            <span className="dot-pulse" aria-hidden="true" />
-            <span className="mono-caps text-ink-800 dark:text-cream-100">
-              Available for Summer &apos;26
-            </span>
-          </div>
-          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+        <div className="flex items-center gap-3 mb-12">
+          <span className="dot-pulse" aria-hidden="true" />
+          <span className="mono-caps text-ink-800 dark:text-cream-100">
+            Online / Summer &apos;26
+          </span>
         </div>
 
-        <h1 className="font-display text-ink-900 dark:text-cream-50 leading-[0.85] tracking-tightest">
-          <span className="block text-[6.5rem] xl:text-[8rem]">Alperen</span>
-          <span className="block text-[6.5rem] xl:text-[8rem] italic text-accent dark:text-accent-light">
+        <h1 className="font-display font-bold text-ink-900 dark:text-cream-50 leading-[0.92] tracking-tightest">
+          <span className="block text-[5rem] xl:text-[6rem]">Alperen</span>
+          <span className="block text-[5rem] xl:text-[6rem] text-accent dark:text-accent-light glow-accent">
             Aydin.
           </span>
         </h1>
 
-        <p className="mt-10 max-w-md font-serif text-[1.1rem] leading-[1.65] text-ink-900 dark:text-cream-100">
+        {/* Waving avatar tucked right under the name */}
+        <div className="mt-4 flex items-center gap-2 -ml-3">
+          <RobloxSprite
+            src="/animations/wave.webm"
+            className="w-32 h-32 object-contain shrink-0"
+          />
+          <span className="mono-caps text-ink-700 dark:text-ink-300">
+            hi there
+          </span>
+        </div>
+
+        <p className="mt-2 max-w-md font-sans text-[1rem] leading-[1.65] text-ink-700 dark:text-cream-100">
           {PROFILE.tagline}
         </p>
 

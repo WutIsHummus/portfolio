@@ -8,7 +8,7 @@ export default function About() {
 
       <div className="flex flex-col lg:flex-row-reverse gap-8 lg:gap-12 lg:items-center">
         <figure className="reveal shrink-0 lg:sticky lg:top-32 w-[160px] sm:w-[200px] lg:w-[220px] mx-auto lg:mx-0">
-          <div className="aspect-[4/5] overflow-hidden rounded-sm bg-cream-200 dark:bg-ink-800 border border-ink-300 dark:border-ink-700">
+          <div className="aspect-[4/5] overflow-hidden rounded-sm bg-cream-200 dark:bg-ink-800 border border-ink-300 dark:border-ink-400">
             <img
               src="/projects/me.png"
               alt={`Portrait of ${PROFILE.name}`}
@@ -18,10 +18,10 @@ export default function About() {
           </div>
         </figure>
 
-        <div className="space-y-6 sm:space-y-7 flex-1 min-w-0 font-serif text-[1.15rem] sm:text-[1.25rem] lg:text-[1.35rem] leading-[1.6] text-ink-900 dark:text-cream-50">
+        <div className="space-y-6 sm:space-y-7 flex-1 min-w-0 font-sans text-[1.15rem] sm:text-[1.25rem] lg:text-[1.35rem] leading-[1.6] text-ink-900 dark:text-cream-50">
           <p className="reveal">
             I&apos;m a CS student at{' '}
-            <span className="italic text-accent dark:text-accent-light">UT Austin</span>{' '}
+            <span className="text-accent dark:text-accent-light font-semibold">UT Austin</span>{' '}
             building software across the stack: CAN-bus telemetry on a Raspberry
             Pi, React admin tools for a global coding competition, a
             server-authoritative game engine running for over a million players.
@@ -30,12 +30,12 @@ export default function About() {
             I like work at the seam between systems: where firmware meets a web
             dashboard, where a multiplayer client must trust a server, where a
             CI pipeline has to make a release feel{' '}
-            <span className="italic text-accent dark:text-accent-light">inevitable</span>.
+            <span className="text-accent dark:text-accent-light font-semibold">inevitable</span>.
             The fun is making the seam disappear.
           </p>
           <p className="reveal">
             When I&apos;m not in class, I&apos;m in the{' '}
-            <span className="italic text-accent dark:text-accent-light">Longhorn Racing Solar</span>{' '}
+            <span className="text-accent dark:text-accent-light font-semibold">Longhorn Racing Solar</span>{' '}
             shop most weekdays and weekends, wiring up CAN buses and debugging
             telemetry on the bench. The rest of the time I&apos;m on Roblox,
             prototyping and stress-testing new game mechanics.
@@ -43,7 +43,7 @@ export default function About() {
         </div>
       </div>
 
-      <div className="reveal mt-16 grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 border-t border-ink-300 dark:border-ink-700 pt-10">
+      <div className="reveal mt-16 grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 border-t border-ink-300 dark:border-ink-400 pt-10">
         {STATS.map((s) => (
           <div key={s.label}>
             <div className="font-display text-5xl sm:text-6xl text-ink-900 dark:text-cream-50 leading-none">
