@@ -108,7 +108,7 @@ export default function RobloxSprite({
       controls={false}
       disablePictureInPicture
       disableRemotePlayback
-      className={`pointer-events-none select-none ${className}`}
+      className={`pointer-events-none select-none character-video ${className}`}
       style={flip ? { transform: 'scaleX(-1)' } : undefined}
       aria-hidden="true"
     />

@@ -61,7 +61,7 @@ export default function LoadingScreen({ onDone }) {
             disablePictureInPicture
             disableRemotePlayback
             onError={() => setVideoOk(false)}
-            className="w-[160px] h-[160px] object-contain pointer-events-none"
+            className="w-[160px] h-[160px] object-contain pointer-events-none character-video"
             aria-hidden="true"
           />
         )}
