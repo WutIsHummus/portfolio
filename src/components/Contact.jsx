@@ -14,7 +14,7 @@ export default function Contact() {
         </h2>
         {/* Chill avatar sitting next to the headline */}
         <RobloxSprite
-          src="/animations/sit.webm"
+          src="/animations/sit.webp"
           className="w-40 h-40 sm:w-48 sm:h-48 object-contain shrink-0 -mb-2"
         />
       </div>

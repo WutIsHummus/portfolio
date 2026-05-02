@@ -12,8 +12,7 @@ import CustomScrollbar from './components/CustomScrollbar.jsx';
 import MobileMenu from './components/MobileMenu.jsx';
 import CursorTracker from './components/CursorTracker.jsx';
 import LoadingScreen from './components/LoadingScreen.jsx';
-import RobloxSprite from './components/RobloxSprite.jsx';
-import { NAV, ANIMATIONS } from './data/portfolio.js';
+import { NAV } from './data/portfolio.js';
 
 function useScrollSpy(ids, offset = 180) {
   const [active, setActive] = useState(ids[0]);
@@ -93,18 +92,6 @@ export default function App() {
         </main>
       </div>
 
-      {ANIMATIONS.map((a) => (
-        <RobloxSprite
-          key={a.id}
-          src={a.src}
-          corner={a.corner}
-          size={a.size}
-          offset={a.offset}
-          section={a.section}
-          delay={a.delay}
-          flip={a.flip}
-        />
-      ))}
     </div>
   );
 }

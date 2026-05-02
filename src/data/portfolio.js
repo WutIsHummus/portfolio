@@ -31,35 +31,15 @@ export const LOADING = {
   ],
 };
 
-// Ambient Roblox sprite placements (fixed-corner, viewport-pinned).
-// Each entry is mounted via App.jsx and only renders while its `section` is in view.
-//   src     — webm path (relative to public/)
-//   corner  — 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
-//   size    — px
-//   offset  — CSS distance from the edges
-//   section — optional section id; only shown while in view
-//   flip    — horizontally mirror the clip
-// (For inline placements anchored to specific elements, use <RobloxSprite> directly
-// inside that component instead of adding entries here.)
-export const ANIMATIONS = [
-  {
-    id: "fly-experience",
-    src: "/animations/fly1.webm",
-    corner: "top-right",
-    size: 160,
-    offset: "2rem",
-    section: "experience",
-  },
-  {
-    id: "fly-work",
-    src: "/animations/fly2.webm",
-    corner: "bottom-right",
-    size: 170,
-    offset: "2.5rem",
-    section: "work",
-    flip: true,
-  },
-];
+// Roblox sprites are placed inline within each section/component using the
+// <RobloxSprite> component directly (e.g. SectionLabel `accent` prop). This
+// keeps them at fixed positions in the content flow rather than floating in
+// viewport corners (where they overlapped text, especially on mobile).
+//
+// To add a new sprite: drop the .webm in /public/animations/, run the WebP
+// encode pipeline, then drop a <RobloxSprite src="/animations/xxx.webp"> at
+// the placement you want.
+export const ANIMATIONS = [];
 
 export const EDUCATION = {
   school: "The University of Texas at Austin",

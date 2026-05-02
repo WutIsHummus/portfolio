@@ -1,10 +1,21 @@
 import SectionLabel from './SectionLabel.jsx';
+import RobloxSprite from './RobloxSprite.jsx';
 import { EXPERIENCE } from '../data/portfolio.js';
 
 export default function Experience() {
   return (
     <section id="experience" className="scroll-mt-24 mb-32">
-      <SectionLabel index={2}>Experience</SectionLabel>
+      <SectionLabel
+        index={2}
+        accent={
+          <RobloxSprite
+            src="/animations/fly1.webp"
+            className="w-16 h-16 sm:w-20 sm:h-20"
+          />
+        }
+      >
+        Experience
+      </SectionLabel>
 
       <div>
         {EXPERIENCE.map((role, i) => (

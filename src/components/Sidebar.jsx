@@ -21,7 +21,7 @@ export default function Sidebar({ active }) {
         {/* Waving avatar tucked right under the name */}
         <div className="mt-4 flex items-center gap-2 -ml-3">
           <RobloxSprite
-            src="/animations/wave.webm"
+            src="/animations/wave.webp"
             className="w-32 h-32 object-contain shrink-0"
           />
           <span className="mono-caps text-ink-700 dark:text-ink-300">

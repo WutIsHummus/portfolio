@@ -1,4 +1,5 @@
 import { PROFILE } from '../data/portfolio.js';
+import RobloxSprite from './RobloxSprite.jsx';
 
 export default function MobileHeader() {
   return (
@@ -16,7 +17,17 @@ export default function MobileHeader() {
         </span>
       </h1>
 
-      <p className="mt-6 max-w-md font-sans text-[1.05rem] sm:text-[1.1rem] leading-[1.6] text-ink-900 dark:text-cream-100">
+      <div className="mt-3 flex items-center gap-2 -ml-3">
+        <RobloxSprite
+          src="/animations/wave.webp"
+          className="w-24 h-24 shrink-0"
+        />
+        <span className="mono-caps text-ink-700 dark:text-ink-300">
+          hi there
+        </span>
+      </div>
+
+      <p className="mt-2 max-w-md font-sans text-[1.05rem] sm:text-[1.1rem] leading-[1.6] text-ink-900 dark:text-cream-100">
         {PROFILE.tagline}
       </p>
 

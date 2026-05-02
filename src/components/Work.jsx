@@ -1,11 +1,23 @@
 import SectionLabel from './SectionLabel.jsx';
 import ProjectCard from './ProjectCard.jsx';
+import RobloxSprite from './RobloxSprite.jsx';
 import { PROJECTS, PUBLICATIONS } from '../data/portfolio.js';
 
 export default function Work() {
   return (
     <section id="work" className="scroll-mt-24 mb-32">
-      <SectionLabel index={3}>Selected Work</SectionLabel>
+      <SectionLabel
+        index={3}
+        accent={
+          <RobloxSprite
+            src="/animations/fly2.webp"
+            className="w-16 h-16 sm:w-20 sm:h-20"
+            flip
+          />
+        }
+      >
+        Selected Work
+      </SectionLabel>
 
       <div className="space-y-20">
         {PROJECTS.map((p) => (

@@ -342,24 +342,10 @@ html.dark .glow-accent {
   }
 }
 
-/* Roblox sprite wrapper: floating decorative video */
+/* Roblox sprite wrapper: floating decorative animated WebP */
 .roblox-sprite {
   position: fixed;
   pointer-events: none;
   z-index: 30;
-  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.25));
-  /* The MP4 sources are composited on near-black bg. Lighten blend-mode
-     erases that bg against the matching page bg without alpha-channel
-     video — character pixels are brighter than #0A0D11 so they stay. */
-  mix-blend-mode: lighten;
-}
-
-html.dark .roblox-sprite {
   filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.6));
-}
-
-/* Same trick for inline character videos (sidebar wave, contact sit,
-   loading screen). Apply via the .character-video class. */
-.character-video {
-  mix-blend-mode: lighten;
 }

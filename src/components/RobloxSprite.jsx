@@ -1,23 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
- * Decorative looping Roblox character clip.
+ * Decorative looping Roblox character clip, rendered as an animated WebP.
+ * Using <img> + WebP avoids iOS Safari's video autoplay restrictions and
+ * preserves true alpha (no blend-mode tricks needed).
  *
  * Two modes:
  *   - Corner mode: pass `corner` ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right')
  *     to pin the sprite to a viewport corner with `offset` distance from the edges.
- *   - Inline mode: omit `corner` and pass a `className` (with sizing) instead — the parent
+ *   - Inline mode: omit `corner` and pass a `className` (with sizing) — the parent
  *     controls placement (flex / absolute positioning / etc).
  *
  * Other props:
- *   src      — webm file path (relative to public/). A sibling .mp4 is auto-derived as a
- *              fallback for browsers without VP9-alpha webm support (notably iOS Safari).
+ *   src      — path to the .webm or .webp (extension auto-swapped to .webp).
  *   size     — px (corner mode only; default 96)
  *   offset   — CSS distance from edges (corner mode only; default '1.5rem')
- *   section  — optional section id; sprite mounts only while that section is in view
+ *   section  — optional section id; sprite mounts only while in view
  *   delay    — ms before fade-in (default 0)
  *   flip     — horizontally mirror (default false)
- *   className — extra Tailwind classes (mainly for inline mode)
+ *   className — extra classes (mainly for inline mode sizing)
  */
 export default function RobloxSprite({
   src,
@@ -30,11 +31,7 @@ export default function RobloxSprite({
   className = '',
 }) {
   const [active, setActive] = useState(!section);
-  const videoRef = useRef(null);
-  // Always serve MP4 — universal codec support including iOS Safari.
-  // The MP4 is composited on the page bg (#0A0D11) so it matches every
-  // placement visually without needing alpha-channel video support.
-  const videoSrc = src.replace(/\.webm$/, '.mp4');
+  const imgSrc = src.replace(/\.(webm|mp4)$/, '.webp');
 
   useEffect(() => {
     if (!section) return;
@@ -48,22 +45,6 @@ export default function RobloxSprite({
     return () => io.disconnect();
   }, [section]);
 
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    // iOS Safari autoplay defenses: mute via property + set legacy attrs
-    v.muted = true;
-    v.setAttribute('webkit-playsinline', '');
-    v.setAttribute('playsinline', '');
-    if (active) {
-      const tryPlay = () => v.play().catch(() => {});
-      if (v.readyState >= 2) tryPlay();
-      else v.addEventListener('loadedmetadata', tryPlay, { once: true });
-    } else {
-      v.pause();
-    }
-  }, [active]);
-
   if (!active) return null;
 
   if (corner) {
@@ -76,19 +57,10 @@ export default function RobloxSprite({
       transform: flip ? 'scaleX(-1)' : undefined,
     };
     return (
-      <video
-        ref={videoRef}
-        src={videoSrc}
-        autoPlay
-        loop
-        muted
-        defaultMuted
-        playsInline
-        preload="auto"
-        controls={false}
-        disablePictureInPicture
-        disableRemotePlayback
-        className={`roblox-sprite animate-sprite-pop pointer-events-none ${className}`}
+      <img
+        src={imgSrc}
+        alt=""
+        className={`roblox-sprite animate-sprite-pop ${className}`}
         style={positionStyle}
         aria-hidden="true"
       />
@@ -96,19 +68,10 @@ export default function RobloxSprite({
   }
 
   return (
-    <video
-      ref={videoRef}
-      src={videoSrc}
-      autoPlay
-      loop
-      muted
-      defaultMuted
-      playsInline
-      preload="auto"
-      controls={false}
-      disablePictureInPicture
-      disableRemotePlayback
-      className={`pointer-events-none select-none character-video ${className}`}
+    <img
+      src={imgSrc}
+      alt=""
+      className={`pointer-events-none select-none ${className}`}
       style={flip ? { transform: 'scaleX(-1)' } : undefined}
       aria-hidden="true"
     />
