@@ -3,8 +3,7 @@ import { PROFILE } from '../data/portfolio.js';
 export default function MobileHeader() {
   return (
     <header className="lg:hidden px-6 sm:px-10 pt-12 pb-10 border-b border-ink-300 dark:border-ink-400">
-      <div className="flex items-center gap-3 mb-10 pr-16">
-        <span className="dot-pulse" aria-hidden="true" />
+      <div className="mb-10 pr-16">
         <span className="mono-caps text-ink-800 dark:text-cream-100">
           Open to Work · Summer &apos;26
         </span>

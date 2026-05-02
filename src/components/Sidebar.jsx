@@ -5,8 +5,7 @@ export default function Sidebar({ active }) {
   return (
     <aside className="hidden lg:flex fixed top-0 left-0 h-screen w-[40%] flex-col justify-between px-16 xl:px-24 py-16 border-r border-ink-300 dark:border-ink-400">
       <div>
-        <div className="flex items-center gap-3 mb-12">
-          <span className="dot-pulse" aria-hidden="true" />
+        <div className="mb-12">
           <span className="mono-caps text-ink-800 dark:text-cream-100">
             Open to Work · Summer &apos;26
           </span>
