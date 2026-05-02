@@ -31,7 +31,10 @@ export default function RobloxSprite({
   className = '',
 }) {
   const [active, setActive] = useState(!section);
-  const imgSrc = src.replace(/\.(webm|mp4)$/, '.webp');
+  // APNG is the actual format on disk — see public/animations/. ffmpeg's
+  // animated WebP encoder doesn't expose frame-disposal controls, so frames
+  // stacked on transparent backgrounds. APNG fixes the disposal correctly.
+  const imgSrc = src.replace(/\.(webm|mp4|webp)$/, '.png');
 
   useEffect(() => {
     if (!section) return;

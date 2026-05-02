@@ -20,7 +20,7 @@ export default function LoadingScreen({ onDone }) {
     return () => clearTimeout(t);
   }, [onDone]);
 
-  const imgSrc = LOADING.src.replace(/\.(webm|mp4)$/, '.webp');
+  const imgSrc = LOADING.src.replace(/\.(webm|mp4|webp)$/, '.png');
 
   return (
     <div
