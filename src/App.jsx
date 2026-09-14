@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
-import Sidebar from './components/Sidebar.jsx';
-import MobileHeader from './components/MobileHeader.jsx';
+import AuraBackground from './components/AuraBackground.jsx';
+import { useState } from 'react';
+import BitsNav from './components/BitsNav.jsx';
+import Hero from './components/Hero.jsx';
 import About from './components/About.jsx';
 import Experience from './components/Experience.jsx';
 import Work from './components/Work.jsx';
@@ -8,90 +9,47 @@ import Skills from './components/Skills.jsx';
 import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
 import ScrollIndicator from './components/ScrollIndicator.jsx';
-import CustomScrollbar from './components/CustomScrollbar.jsx';
-import MobileMenu from './components/MobileMenu.jsx';
-import CursorTracker from './components/CursorTracker.jsx';
 import LoadingScreen from './components/LoadingScreen.jsx';
-import { NAV } from './data/portfolio.js';
-
-function useScrollSpy(ids, offset = 180) {
-  const [active, setActive] = useState(ids[0]);
-
-  useEffect(() => {
-    const onScroll = () => {
-      let current = ids[0];
-      for (const id of ids) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        const top = el.getBoundingClientRect().top;
-        if (top - offset <= 0) current = id;
-      }
-      setActive(current);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [ids, offset]);
-
-  return active;
-}
-
-function useReveal() {
-  useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const els = Array.from(document.querySelectorAll('.reveal'));
-    if (reduced) {
-      els.forEach((el) => el.classList.add('is-visible'));
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            io.unobserve(entry.target);
-          }
-        }
-      },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.05 }
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-}
+import Vlog from './components/Vlog.jsx';
+import Reveal from './components/Reveal.jsx';
 
 export default function App() {
-  const ids = NAV.map((n) => n.id);
-  const active = useScrollSpy(ids);
   const [loaded, setLoaded] = useState(false);
-  useReveal();
 
   return (
-    <div className="min-h-screen relative">
-      {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
+    <div className="click-spark-host min-h-screen relative bg-asphalt text-paper">
+      <>
+        {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
+        <ScrollIndicator />
+        <BitsNav />
+        <Hero ready={loaded} />
 
-      <div className="grid-bg" aria-hidden="true" />
-      <div className="grain" aria-hidden="true" />
-      <ScrollIndicator active={active} />
-      <CustomScrollbar />
-      <MobileMenu active={active} />
-      <CursorTracker />
+        <div className="post-hero-content relative isolate">
+        <AuraBackground />
 
-      <MobileHeader />
+        <div className="relative z-10 px-6 sm:px-10 lg:px-16 pt-24">
+          <div className="max-w-5xl mx-auto">
+            <Reveal><About /></Reveal>
+          </div>
+          <div className="max-w-3xl mx-auto">
+            <Reveal><Experience /></Reveal>
+          </div>
+        </div>
 
-      <div className="lg:flex relative">
-        <Sidebar active={active} />
-
-        <main className="lg:w-[60%] lg:ml-[40%] px-6 sm:px-10 lg:px-16 xl:px-24 pt-8 lg:pt-32 pb-32 relative z-10">
-          <About />
-          <Experience />
+        <div className="relative z-10">
           <Work />
-          <Skills />
-          <Contact />
-          <Footer />
-        </main>
-      </div>
+        </div>
 
+        <div className="relative z-10 px-6 sm:px-10 lg:px-16 pb-16">
+          <div className="max-w-3xl mx-auto">
+            <Reveal><Skills /></Reveal>
+            <Reveal><Vlog /></Reveal>
+            <Reveal><Contact /></Reveal>
+            <Footer />
+          </div>
+        </div>
+        </div>
+      </>
     </div>
   );
 }

@@ -1,9 +1,2 @@
-export default function Footer() {
-  const year = new Date().getFullYear();
-  return (
-    <footer className="border-t border-ink-300 dark:border-ink-400 pt-8 mono-caps text-ink-700 dark:text-ink-300 flex flex-col sm:flex-row gap-2 sm:justify-between">
-      <span>© {year} Alperen Aydin</span>
-      <span>Designed with care · Austin, TX</span>
-    </footer>
-  );
-}
+import { PROFILE, NAV } from '../data/portfolio.js';
+export default function Footer() { return <footer className="mt-16"><nav aria-label="Footer navigation" className="footer-nav">{[{id:'top',label:'Start'},...NAV].map(n => <a key={n.id} href={'#'+n.id}>{n.label} &#8599;</a>)}</nav><div className="border-t border-rule mt-8 pt-6 pb-4 mono-caps text-mute flex flex-col sm:flex-row gap-3 sm:justify-between"><span>&copy; {new Date().getFullYear()} {PROFILE.name}</span><span>{PROFILE.coords} &middot; {PROFILE.location}</span></div></footer>; }

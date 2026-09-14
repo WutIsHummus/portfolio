@@ -1,22 +1,16 @@
 import { useEffect, useState } from 'react';
-import { NAV } from '../data/portfolio.js';
+import { NAV, PROFILE } from '../data/portfolio.js';
 
 export default function MobileMenu({ active }) {
   const [open, setOpen] = useState(false);
 
-  // Lock body scroll when menu is open
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = open ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
   }, [open]);
 
-  // Close on Escape
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => {
@@ -28,51 +22,25 @@ export default function MobileMenu({ active }) {
 
   return (
     <>
-      {/* Hamburger / close button — fixed so it's always reachable */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
-        className="lg:hidden fixed top-5 right-5 z-[80] w-11 h-11 flex items-center justify-center rounded-full border border-ink-400 dark:border-ink-400 bg-cream-100/90 dark:bg-ink-900/90 backdrop-blur-sm shadow-sm transition-colors"
+        className="md:hidden fixed top-2.5 right-3 z-[80] h-10 px-3 flex items-center justify-center rounded-full border border-paper/25 bg-asphalt/80 backdrop-blur-sm"
       >
-        <span className="relative w-5 h-4 block" aria-hidden="true">
-          <span
-            className={`absolute left-0 w-full h-[1.5px] bg-ink-900 dark:bg-cream-50 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              open ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-0'
-            }`}
-          />
-          <span
-            className={`absolute left-0 top-1/2 -translate-y-1/2 w-full h-[1.5px] bg-ink-900 dark:bg-cream-50 transition-opacity duration-200 ${
-              open ? 'opacity-0' : 'opacity-100'
-            }`}
-          />
-          <span
-            className={`absolute left-0 w-full h-[1.5px] bg-ink-900 dark:bg-cream-50 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              open ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'top-full -translate-y-full'
-            }`}
-          />
-        </span>
+        <span className="mono-caps text-paper">{open ? 'Close' : 'Menu'}</span>
       </button>
 
-      {/* Fullscreen menu overlay */}
       <div
-        className={`lg:hidden fixed inset-0 z-[70] bg-cream-100 dark:bg-ink-900 transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          open ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'
+        className={`md:hidden fixed inset-0 z-[70] bg-asphalt transition-[opacity,transform] duration-400 ${
+          open ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-3 pointer-events-none'
         }`}
         aria-hidden={!open}
       >
-        <div className="grain" aria-hidden="true" />
-
-        <nav
-          aria-label="Mobile navigation"
-          className="relative h-full flex flex-col justify-center px-8 sm:px-12"
-        >
-          <span className="mono-caps text-ink-700 dark:text-ink-300 mb-10">
-            Index
-          </span>
-
-          <ul className="space-y-5">
+        <nav aria-label="Mobile navigation" className="h-full flex flex-col justify-center px-8">
+          <span className="mono-caps text-mute mb-8">Index</span>
+          <ul className="space-y-4">
             {NAV.map((item, i) => {
               const isActive = active === item.id;
               return (
@@ -80,16 +48,14 @@ export default function MobileMenu({ active }) {
                   <a
                     href={`#${item.id}`}
                     onClick={() => setOpen(false)}
-                    className="group flex items-baseline gap-5"
+                    className="flex items-baseline gap-4"
                   >
-                    <span className="mono-caps text-ink-600 dark:text-ink-500 tabular-nums shrink-0 w-8">
+                    <span className="mono-caps text-signal tabular-nums w-8">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <span
-                      className={`font-display tracking-tightest leading-[0.95] text-[3.25rem] sm:text-[3.75rem] transition-colors ${
-                        isActive
-                          ? 'text-accent dark:text-accent-light glow-accent font-bold'
-                          : 'text-ink-900 dark:text-cream-50 group-hover:text-accent dark:group-hover:text-accent-light'
+                      className={`font-display tracking-tightest text-[2.8rem] leading-none ${
+                        isActive ? 'text-signal' : 'text-paper'
                       }`}
                     >
                       {item.label}
@@ -99,11 +65,16 @@ export default function MobileMenu({ active }) {
               );
             })}
           </ul>
-
-          <div className="mt-14 pt-8 border-t border-ink-300 dark:border-ink-400 flex flex-wrap gap-x-8 gap-y-3 mono-caps text-ink-800 dark:text-cream-100">
-            <a href="mailto:alperenaydin1@gmail.com" className="link-underline">Email</a>
-            <a href="https://www.linkedin.com/in/alperenaydin1/" className="link-underline" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a href="https://github.com/WutIsHummus" className="link-underline" target="_blank" rel="noreferrer">GitHub</a>
+          <div className="mt-12 pt-6 border-t border-rule flex flex-wrap gap-x-8 gap-y-3 mono-caps text-paper/80">
+            <a href={`mailto:${PROFILE.email}`} className="link-underline">
+              Email
+            </a>
+            <a href={PROFILE.linkedin} className="link-underline" target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+            <a href={PROFILE.github} className="link-underline" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
           </div>
         </nav>
       </div>

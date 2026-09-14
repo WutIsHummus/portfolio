@@ -3,55 +3,48 @@ import { STATS, PROFILE } from '../data/portfolio.js';
 
 export default function About() {
   return (
-    <section id="about" className="scroll-mt-24 mb-32">
+    <section id="about" className="scroll-mt-32 mb-28">
       <SectionLabel index={1}>About</SectionLabel>
 
-      <div className="flex flex-col lg:flex-row-reverse gap-8 lg:gap-12 lg:items-center">
-        <figure className="reveal shrink-0 lg:sticky lg:top-32 w-[160px] sm:w-[200px] lg:w-[220px] mx-auto lg:mx-0">
-          <div className="aspect-[4/5] overflow-hidden rounded-sm bg-cream-200 dark:bg-ink-800 border border-ink-300 dark:border-ink-400">
-            <img
-              src="/projects/me.png"
-              alt={`Portrait of ${PROFILE.name}`}
-              loading="lazy"
-              className="w-full h-full object-cover object-top scale-125 grayscale-[20%] hover:grayscale-0 transition-[filter] duration-700"
-            />
-          </div>
-        </figure>
-
-        <div className="space-y-6 sm:space-y-7 flex-1 min-w-0 font-sans text-[1.15rem] sm:text-[1.25rem] lg:text-[1.35rem] leading-[1.6] text-ink-900 dark:text-cream-50">
-          <p className="reveal">
-            I&apos;m a CS student at{' '}
-            <span className="text-accent dark:text-accent-light font-semibold">UT Austin</span>{' '}
-            building software across the stack: CAN-bus telemetry on a Raspberry
-            Pi, React admin tools for a global coding competition, a
-            server-authoritative game engine running for over a million players.
-          </p>
-          <p className="reveal">
-            I like work at the seam between systems: where firmware meets a web
-            dashboard, where a multiplayer client must trust a server, where a
-            CI pipeline has to make a release feel{' '}
-            <span className="text-accent dark:text-accent-light font-semibold">inevitable</span>.
-            The fun is making the seam disappear.
-          </p>
-          <p className="reveal">
-            When I&apos;m not in class, I&apos;m in the{' '}
-            <span className="text-accent dark:text-accent-light font-semibold">Longhorn Racing Solar</span>{' '}
-            shop most weekdays and weekends, wiring up CAN buses and debugging
-            telemetry on the bench. The rest of the time I&apos;m on Roblox,
-            prototyping and stress-testing new game mechanics.
-          </p>
+      <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 lg:items-center">
+        <div className="w-full max-w-[320px] mx-auto lg:mx-0 shrink-0">
+          <figure className="portrait-card">
+            <img src="/projects/me.png" alt="Alperen Aydin at the UT Austin tower" width="640" height="800" loading="lazy" />
+            <figcaption><span className="font-display text-xl font-semibold">{PROFILE.name}</span><span className="mono-caps text-mute">{PROFILE.title} / Austin, TX</span></figcaption>
+          </figure>
         </div>
-      </div>
 
-      <div className="reveal mt-16 grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 border-t border-ink-300 dark:border-ink-400 pt-10">
-        {STATS.map((s) => (
-          <div key={s.label}>
-            <div className="font-display text-5xl sm:text-6xl text-ink-900 dark:text-cream-50 leading-none">
-              {s.value}
-            </div>
-            <div className="mt-3 mono-caps text-ink-800 dark:text-ink-300">{s.label}</div>
+        <div className="flex-1 min-w-0">
+          <div className="space-y-6 font-sans text-[1.12rem] sm:text-[1.22rem] leading-[1.65] text-paper">
+            <p >
+              Most weekdays I am in the Longhorn Racing shop. The car talks CAN.
+              I write the C++ that hears it, the Pi that forwards it, and the
+              Vulkan map the pit stares at.
+            </p>
+            <p >
+              The rest of the time I run a Roblox engine that cannot trust the
+              client. Over two million players have walked through it. The interesting
+              bugs are the ones that only show up at 600 CCU.
+            </p>
+            <p >
+              I like the ugly middle: firmware next to a dashboard, a remote
+              event that has to stay honest, a CI job that either ships or
+              it doesn’t.
+            </p>
           </div>
-        ))}
+
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 border-t border-rule pt-8">
+            {STATS.map((s) => (
+              <div key={s.label}>
+                <div className="font-display font-extrabold tracking-tightest text-5xl sm:text-6xl text-paper leading-none">
+                  {s.value}
+                </div>
+                <div className="mt-3 mono-caps text-mute">{s.label}</div>
+                {s.detail && <p className="mt-2 text-sm text-mute">{s.detail}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

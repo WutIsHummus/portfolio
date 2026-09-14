@@ -1,11 +1,11 @@
 export const PROFILE = {
   name: "Alperen Aydin",
   title: "Software Developer",
-  tagline:
-    "Software developer working across embedded systems, fullstack web, and game engines.",
+  tagline: "Telemetry on a solar car. A game engine for over two million players.",
   longTagline:
-    "Computer Science @ UT Austin. I build full-stack web apps, embedded systems, and game engines, from CAN-bus telemetry to Roblox servers with a million+ users.",
+    "CS at UT Austin. I write the software on the car and the software on the server.",
   location: "Austin, TX",
+  coords: "30.2849° N",
   email: "alperenaydin1@gmail.com",
   phone: "713-307-2507",
   linkedin: "https://www.linkedin.com/in/alperenaydin1/",
@@ -16,30 +16,11 @@ export const PROFILE = {
   },
 };
 
-// Loading screen config — the hero asset that plays on first paint.
 export const LOADING = {
   src: "/animations/loading.webm",
-  // Minimum time (ms) the loading screen stays up so the animation
-  // gets a clean run even on a fast connection.
-  minDurationMs: 1800,
-  // The little line of text under the character. Pick whichever feels right.
-  messages: [
-    "one sec",
-    "loading",
-    "brb",
-    "almost there",
-  ],
+  minDurationMs: 1400,
+  messages: ["hold still", "sync", "one more frame"],
 };
-
-// Roblox sprites are placed inline within each section/component using the
-// <RobloxSprite> component directly (e.g. SectionLabel `accent` prop). This
-// keeps them at fixed positions in the content flow rather than floating in
-// viewport corners (where they overlapped text, especially on mobile).
-//
-// To add a new sprite: drop the .webm in /public/animations/, run the WebP
-// encode pipeline, then drop a <RobloxSprite src="/animations/xxx.webp"> at
-// the placement you want.
-export const ANIMATIONS = [];
 
 export const EDUCATION = {
   school: "The University of Texas at Austin",
@@ -50,80 +31,102 @@ export const EDUCATION = {
 
 export const EXPERIENCE = [
   {
-    company: "Longhorn Racing Solar",
-    role: "Vehicle Controls & Telemetry Software Developer",
-    dates: "Sep 2025 / Present",
+    company: "Handshake AI",
+    role: "LLM Evaluation Contractor",
+    dates: "May 2026 \u2014 Aug 2026",
     blurb:
-      "Embedded C++ on Photon and Raspberry Pi with a CAN-bus interface, the primary link between vehicle hardware and the telemetry network.",
+      "Built challenging, reproducible evaluations for frontier LLM agents.",
     bullets: [
-      "Designed a multi-node distributed communication layer over UDP/TCP that relays real-time operational data to a central server.",
-      "Built a cross-platform, GPU-accelerated visualization tool with Vulkan, OpenStreetMap, and OpenElevation for live GPS tracking and terrain-aware telemetry analysis.",
-      "Shipped an embedded driver dashboard ingesting CAN-bus signals (ignition, contactors, speed, braking, turn signals, fault codes) alongside synchronized live video from three onboard cameras.",
+      "Shipped 7 Dockerized evaluation tasks across 6 domains, with hidden ground truth and 82 automated grader tests designed to challenge frontier and open-source LLMs, including OpenAI models.",
+      "Evaluated frontier agents on Terminal-Bench multi-step shell and tool-use trajectories; wrote adversarial graders that blocked shortcut solutions.",
     ],
   },
   {
-    company: "SPTS Studio (Roblox)",
-    role: "Lead Programming Developer / Co-Owner",
-    dates: "Sep 2021 / Present",
+    company: "Longhorn Racing Solar",
+    role: "Vehicle Controls & Telemetry",
+    dates: "Sep 2025 — now",
     blurb:
-      "A server-authoritative Roblox game engine powering a simulator and a horror title, scaled from 60 to 600 peak CCU.",
+      "C++ on Photon and a Raspberry Pi. CAN is the wire between the car and everything that watches it.",
     bullets: [
-      "Engineered a custom player-data persistence system with server-side remote-event validation and sanitization.",
-      "Built client prediction for character movement and a reusable seasonal framework for recurring live events.",
-      "Cut average server script memory by 40% (~450MB) through targeted audits and system-level rewrites.",
-      "Managed a 5-person dev team across a 1M+ user game, owning roadmap planning and code review.",
+      "UDP/TCP fabric that dumps live frames from the car to a pit server.",
+      "Vulkan map with OSM + elevation so GPS is a place, not a point.",
+      "Driver dash: ignition, contactors, speed, brakes, faults, plus three synced cameras.",
+    ],
+  },
+  {
+    company: "SPTS Studio · Roblox",
+    role: "Lead programmer / co-owner",
+    dates: "Sep 2021 — now",
+    blurb:
+      "Server-authoritative engine under a simulator and a horror title. 60 peak CCU to 600. Over two million players through the door.",
+    bullets: [
+      "Player data that only the server is allowed to believe.",
+      "Client prediction for movement, plus a seasonal live-event shell we reuse.",
+      "Cut average server script memory ~40% (~450MB) by rewriting the hot paths.",
+      "Five-person team. I own the roadmap and the reviews.",
     ],
   },
   {
     company: "Lockheed Martin",
-    role: "Fullstack Enterprise Operations Intern",
-    dates: "May 2023 / May 2024",
+    role: "Fullstack intern",
+    dates: "May 2023 — May 2024",
     blurb:
-      "Led a team of college interns to deliver a global coding-competition registration website end-to-end.",
+      "College intern crew, one registration site for a global coding competition. We shipped it.",
     bullets: [
-      "Set up and maintained GitLab CI/CD pipelines to automate build, code compilation, and deployment.",
-      "Built the registration flow in React + TypeScript and integrated a GraphQL API via Hasura.",
-      "Stood up a secure admin page for managing registrations, reviewing documents, and administering user access.",
-      "Implemented file upload/retrieval on Amazon S3 with Object Versioning.",
-      "Configured FusionAuth SAML v2 identity provider integration for enterprise-style SSO.",
+      "GitLab CI that compiled, tested, and deployed without a ceremony.",
+      "React + TypeScript registration against Hasura GraphQL.",
+      "Admin for docs, access, and S3 uploads with versioning.",
+      "FusionAuth SAML so the enterprise login actually worked.",
     ],
   },
   {
-    company: "The Cosmobots",
-    role: "Lead Programmer / Designer · FTC",
-    dates: "Aug 2021 / Aug 2025",
+    company: "The Cosmobots · FTC",
+    role: "Lead programmer",
+    dates: "Aug 2021 — Aug 2025",
     blurb:
-      "Shipped the full Java stack for a competition robot covering control, automation, and vision. 26th of 8,000 teams globally.",
+      "Full Java stack on a competition robot. 26th of 8,000 teams. Michiana finalist, 2025.",
     bullets: [
-      "Custom trajectory-following pipeline with Kalman-filtered sensor fusion for precise localization and path execution.",
-      "Multi-threaded command system with event-driven callbacks and hardware-in-the-loop testing.",
-      "Real-time vision-based target tracking and autonomous pose correction via Limelight.",
-      "Finalist qualifier at the 2025 Michiana International Premier Event.",
+      "Trajectory following with Kalman-filtered localization.",
+      "Multi-thread command bus, hardware-in-the-loop on the bench.",
+      "Limelight vision for pose correction in auto.",
     ],
   },
 ];
 
 export const PROJECTS = [
   {
+    name: "TrueDeck",
+    subtitle: "A workspace for coding agents",
+    dates: "2026 — now",
+    description: "A terminal-first desktop workspace for running coding agents side by side. Shared project context, automatic memory, and MCP wiring keep the setup out of the way.",
+    tags: ["Electron", "TypeScript", "MCP", "Developer tools"],
+    link: "https://github.com/WutIsHummus/TrueDeck",
+    image: "/projects/truedeck-screenshot.png",
+    logo: "/projects/truedeck-logo.png",
+    imageAlt: "TrueDeck with Grok, Codex, Claude, and Cursor in four terminal panes",
+    width: 1440,
+    height: 1026,
+  },
+  {
     name: "Photon",
     subtitle: "Longhorn Racing Solar",
-    dates: "2025 / Present",
+    dates: "2025 — now",
     description:
-      "A heterogeneous compute engine for the solar car's telemetry stack. A C++ runtime with six pluggable subsystems wired around a central engine: a network layer ingesting live streams, a parser decoding and storing them, a thread/memory/sync core, a GPU render-and-compute pipeline, a control GUI, and a synthesis layer for live analysis. Runs on a Raspberry Pi over CAN-bus, UDP/TCP, and Vulkan.",
-    tags: ["C++", "Raspberry Pi", "CAN-bus", "Vulkan", "UDP/TCP", "Heterogeneous compute"],
+      "Compute engine for the solar car. Six subsystems around one C++ runtime: network, parser/store, threads, Vulkan, GUI, live analysis. Pi + CAN + UDP.",
+    tags: ["C++", "Raspberry Pi", "CAN", "Vulkan"],
     link: "https://github.com/lhr-solar/Photon",
-    image: "/projects/photon.svg",
-    width: 800,
-    height: 180,
-    compact: true,
+    image: "/projects/photon-dashboard.png",
+    imageAlt: "Photon telemetry dashboard with vehicle status, 3D track view, live plots, and battery cell monitoring",
+    width: 1337,
+    height: 680,
   },
   {
     name: "YoctoPiBuild",
     subtitle: "Longhorn Racing Solar",
-    dates: "2025 / Present",
+    dates: "2025 — now",
     description:
-      "Yocto Linux build configuration for a custom integrated Raspberry Pi CM5 that underpins the Photon telemetry stack. Reproducible, minimal, bootable images tuned for the solar car's embedded environment.",
-    tags: ["Yocto", "Linux", "Raspberry Pi CM5", "Embedded"],
+      "Yocto image for the Pi CM5 under Photon. Small, bootable, repeatable.",
+    tags: ["Yocto", "Linux", "Pi CM5"],
     link: "https://github.com/lhr-solar/YoctoPiBuild",
     image: "/projects/yocto.png",
     width: 841,
@@ -131,11 +134,11 @@ export const PROJECTS = [
   },
   {
     name: "Rorchestra",
-    subtitle: "AI orchestration for Roblox / Luau",
+    subtitle: "Roblox / Luau",
     dates: "2025",
     description:
-      "AI-powered orchestration for Roblox / Luau codebases. Ingests a Rojo project, builds a require() dependency graph and hierarchical memory, then uses Gemini CLI agents to investigate context and generate scoped multi-file edits with unified diffs, all from an interactive REPL. Includes MCP integration for live Roblox Studio state queries, a token-budgeted context packet assembler, and invalidation-driven summaries.",
-    tags: ["Python", "Gemini CLI", "MCP", "Roblox", "Luau", "Rojo"],
+      "Rojo in, require() graph out. Gemini agents edit the graph with diffs. MCP talks to live Studio.",
+    tags: ["Python", "MCP", "Luau"],
     link: "https://github.com/WutIsHummus/Rorchestra",
     image: "/projects/rorchestra.png",
     width: 1087,
@@ -143,11 +146,12 @@ export const PROJECTS = [
   },
   {
     name: "SPTS: Endless",
-    subtitle: "SPTS Studio · Roblox",
-    dates: "2021 / Present",
+    subtitle: "SPTS Studio",
+    dates: "2021 — now",
+    featured: true,
     description:
-      "Server-authoritative Roblox simulator with a custom engine powering 1M+ players. Custom data persistence, client prediction, and a reusable seasonal live-event framework. Scaled from 60 to 600 peak CCU through performance optimization and live engagement.",
-    tags: ["Lua", "Roblox", "Systems Design"],
+      "Custom engine under a Roblox simulator. Persistence, prediction, seasons. 2M+ players.",
+    tags: ["Lua", "Roblox"],
     link: "https://www.roblox.com/games/109355252375602/Super-Power-Training-Endless",
     image: "/projects/spts.webp",
     width: 768,
@@ -155,11 +159,11 @@ export const PROJECTS = [
   },
   {
     name: "LM CodeQuest Academy",
-    subtitle: "Lockheed Martin · Registration site",
-    dates: "2023 / 2024",
+    subtitle: "Lockheed Martin",
+    dates: "2023 — 2024",
     description:
-      "End-to-end registration platform for Lockheed Martin's global coding competition. React + TypeScript frontend, Hasura GraphQL API, FusionAuth SAML SSO, S3-backed file uploads, and GitLab CI/CD. Live in production.",
-    tags: ["React", "TypeScript", "GraphQL", "Hasura", "AWS S3", "FusionAuth"],
+      "Registration for Lockheed’s global coding competition. GraphQL, SAML, S3. Still up.",
+    tags: ["React", "Hasura", "SAML"],
     link: "https://registration.lmcodequestacademy.com",
     image: "/projects/lockheed.jpg",
     width: 1628,
@@ -168,43 +172,27 @@ export const PROJECTS = [
 ];
 
 export const SKILLS = {
-  "Languages & Frameworks": [
-    "Java",
-    "C / C++",
-    "Python",
-    "TypeScript",
-    "C#",
-    "Lua",
-    "React",
-    "Next.js",
-    ".NET / WPF",
-    "GraphQL",
-    "REST",
-  ],
-  "Systems & DevOps": [
-    "Raspberry Pi",
-    "CAN-bus",
-    "UDP/TCP",
-    "Vulkan",
-    "SAML / SSO",
-    "AWS S3",
-    "GitLab CI/CD",
-    "Docker",
-    "Vercel",
-    "Git",
-  ],
-  "Practices & Tools": [
-    "PostgreSQL",
-    "Hasura",
-    "FusionAuth",
-    "Clerk",
-    "Stripe API",
-    "OpenAI API",
-    "Agile / Scrum",
-    "Embedded Dev",
-    "HIL Testing",
-  ],
+  Languages: ["C / C++", "Java", "Python", "TypeScript", "C#", "Lua", "Luau"],
+  Surfaces: ["React", "Next.js", ".NET / WPF", "GraphQL", "REST"],
+  Machines: ["Raspberry Pi", "CAN-bus", "UDP/TCP", "Vulkan", "Yocto", "Docker"],
+  Plumbing: ["AWS S3", "GitLab CI", "Hasura", "FusionAuth", "PostgreSQL"],
 };
+
+export const SKILL_TAPE = [
+  "C++",
+  "CAN",
+  "Vulkan",
+  "Luau",
+  "React",
+  "Yocto",
+  "Hasura",
+  "SAML",
+  "UDP",
+  "Pi CM5",
+  "GraphQL",
+  "Rojo",
+  "PostgreSQL",
+];
 
 export const PUBLICATIONS = [
   {
@@ -217,15 +205,21 @@ export const PUBLICATIONS = [
 ];
 
 export const STATS = [
-  { value: "1M+", label: "Players reached" },
-  { value: "5+", label: "Years shipping software" },
-  { value: "4", label: "Production systems shipped" },
+  { value: "2M+", label: "players reached" },
+  { value: "10\u00d7", label: "peak concurrent players", detail: "60 to 600 CCU" },
+  { value: "~40%", label: "less server script memory" },
 ];
 
 export const NAV = [
   { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "work", label: "Selected Work" },
-  { id: "skills", label: "Skills" },
-  { id: "contact", label: "Contact" },
+  { id: "experience", label: "Log" },
+  { id: "work", label: "Builds" },
+  { id: "skills", label: "Kit" },
+  { id: "vlog", label: "Vlog" },
+  { id: "contact", label: "Ping" },
 ];
+
+// Add published videos here. src is a local /vlogs/file.mp4 path; url links to a hosted video.
+// { title: 'A day in the shop', date: '2026-09-13', description: '...', src: '/vlogs/shop.mp4', poster: '/vlogs/shop.jpg' }
+// { title: 'Building TrueDeck', date: '2026-09-13', description: '...', url: 'https://www.youtube.com/watch?v=YOUR_ID' }
+export const VLOGS = [];

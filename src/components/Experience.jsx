@@ -4,59 +4,50 @@ import { EXPERIENCE } from '../data/portfolio.js';
 
 export default function Experience() {
   return (
-    <section id="experience" className="scroll-mt-24 mb-32">
+    <section id="experience" className="scroll-mt-32 mb-14">
       <SectionLabel
         index={2}
         accent={
-          <RobloxSprite
-            src="/animations/fly1.webp"
-            className="w-16 h-16 sm:w-20 sm:h-20"
-          />
+          <span className="relative block w-20 sm:w-28 h-12">
+            <RobloxSprite
+              src="/animations/fly1.webp"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 sm:w-40 sm:h-40 max-w-none object-contain"
+            />
+          </span>
         }
       >
-        Experience
+        Shop log
       </SectionLabel>
 
       <div>
-        {EXPERIENCE.map((role, i) => (
+        {EXPERIENCE.map((role) => (
           <article
             key={role.company + role.role}
-            className={`reveal py-10 ${i !== 0 ? 'border-t border-ink-300 dark:border-ink-400' : ''}`}
+            className="grid grid-cols-1 sm:grid-cols-[9.5rem_1fr] gap-2 sm:gap-8 py-8 border-t border-rule"
           >
-            <header className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-4">
-              <div>
-                <h3 className="font-sans font-medium text-[1.4rem] sm:text-[1.7rem] leading-tight text-ink-900 dark:text-cream-50">
-                  {role.role}
-                </h3>
-                <p className="font-display font-semibold text-accent dark:text-accent-light text-[1.2rem] sm:text-[1.4rem] leading-tight mt-1">
-                  {role.company}
-                </p>
-              </div>
-              <span className="mono-caps text-ink-700 dark:text-ink-300 sm:text-right shrink-0">
-                {role.dates}
-              </span>
-            </header>
-
-            <p className="font-sans text-[1rem] sm:text-[1.08rem] leading-[1.65] text-ink-900 dark:text-cream-100 max-w-2xl">
-              {role.blurb}
-            </p>
-
-            <ul className="mt-5 space-y-2.5 max-w-2xl">
-              {role.bullets.map((b, j) => (
-                <li
-                  key={j}
-                  className="flex gap-3 font-sans text-[0.98rem] sm:text-[1.02rem] leading-[1.65] text-ink-900 dark:text-cream-100"
-                >
-                  <span
-                    className="text-accent dark:text-accent-light mt-1 select-none"
-                    aria-hidden="true"
+            <p className="mono-caps text-mute sm:pt-1">{role.dates}</p>
+            <div>
+              <h3 className="font-display font-semibold text-[1.45rem] sm:text-[1.7rem] leading-tight text-paper">
+                {role.company}
+              </h3>
+              <p className="mt-1 font-sans text-signal">{role.role}</p>
+              <p className="mt-4 font-sans text-[1.02rem] leading-[1.65] text-paper/85 max-w-2xl">
+                {role.blurb}
+              </p>
+              <ul className="mt-4 space-y-2 max-w-2xl">
+                {role.bullets.map((b) => (
+                  <li
+                    key={b}
+                    className="grid grid-cols-[0.7rem_1fr] gap-3 font-sans text-[0.98rem] leading-[1.6] text-paper/80"
                   >
-                    ·
-                  </span>
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
+                    <span className="text-gold select-none" aria-hidden="true">
+                      ›
+                    </span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </article>
         ))}
       </div>

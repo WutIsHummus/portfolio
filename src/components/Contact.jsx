@@ -1,54 +1,60 @@
 import SectionLabel from './SectionLabel.jsx';
 import RobloxSprite from './RobloxSprite.jsx';
+import Magnet from './reactbits/Magnet/Magnet.jsx';
 import { PROFILE } from '../data/portfolio.js';
 
 export default function Contact() {
   return (
-    <section id="contact" className="scroll-mt-24 mb-24 relative">
-      <SectionLabel index={5}>Contact</SectionLabel>
+    <section id="contact" className="scroll-mt-32 mb-20">
+      <SectionLabel index={6}>Ping</SectionLabel>
 
-      <div className="reveal flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-6 max-w-3xl">
-        <h2 className="font-display font-bold tracking-tightest leading-[0.95] text-[2.75rem] sm:text-[3.5rem] lg:text-[5rem] text-ink-900 dark:text-cream-50 flex-1">
-          Let&apos;s build{' '}
-          <span className="text-accent dark:text-accent-light glow-accent">something good.</span>
+      <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-6">
+        <h2 className="font-display font-extrabold tracking-tightest leading-[0.92] text-[2.6rem] sm:text-[3.8rem] lg:text-[4.6rem] text-paper max-w-xl">
+          If it has to stay up under load, email me.
         </h2>
-        {/* Chill avatar sitting next to the headline */}
         <RobloxSprite
           src="/animations/sit.webp"
-          className="w-40 h-40 sm:w-48 sm:h-48 object-contain shrink-0 -mb-2"
+          className="w-36 h-36 sm:w-44 sm:h-44 object-contain shrink-0 -mb-1"
         />
       </div>
 
-      <p className="reveal mt-8 font-sans text-[1.05rem] sm:text-[1.15rem] lg:text-[1.2rem] leading-[1.65] text-ink-700 dark:text-cream-100 max-w-xl">
-        I&apos;m looking for a Summer 2026 internship in software engineering,
-        embedded systems, or developer tooling. Always happy to chat about{' '}
-        <span className="text-accent dark:text-accent-light font-semibold">interesting problems</span>.
+      <p className="mt-7 font-sans text-[1.08rem] leading-[1.65] text-paper/80 max-w-xl">
+        Software, embedded systems, and developer tooling. I read CAN traces
+        and remote-event logs for fun. That is not a metaphor.
       </p>
 
-      <div className="reveal mt-10 break-all sm:break-normal">
-        <a
-          href={`mailto:${PROFILE.email}`}
-          className="font-display text-[1.5rem] sm:text-[2rem] lg:text-[2.4rem] text-ink-900 dark:text-cream-50 link-underline-static"
-        >
-          {PROFILE.email}
-        </a>
+      <div className="mt-10 max-w-xl">
+        <div className="contact-link">
+          <a
+            href={`mailto:${PROFILE.email}`}
+            className="block px-5 py-4 font-display font-semibold text-[1.25rem] sm:text-[1.7rem] text-paper break-all"
+          >
+            {PROFILE.email}
+          </a>
+        </div>
       </div>
 
-      <ul className="reveal mt-10 flex flex-wrap gap-x-8 gap-y-3 mono-caps text-ink-900 dark:text-cream-100">
+      <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-4 mono-caps text-paper/85">
         <li>
-          <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="link-underline">
-            LinkedIn ↗
-          </a>
+          <Magnet padding={40} magnetStrength={3}>
+            <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="link-underline inline-block">
+              LinkedIn ↗
+            </a>
+          </Magnet>
         </li>
         <li>
-          <a href={PROFILE.github} target="_blank" rel="noreferrer" className="link-underline">
-            GitHub ↗
-          </a>
+          <Magnet padding={40} magnetStrength={3}>
+            <a href={PROFILE.github} target="_blank" rel="noreferrer" className="link-underline inline-block">
+              GitHub ↗
+            </a>
+          </Magnet>
         </li>
         <li>
-          <a href={`tel:${PROFILE.phone}`} className="link-underline">
-            {PROFILE.phone}
-          </a>
+          <Magnet padding={40} magnetStrength={3}>
+            <a href={`tel:${PROFILE.phone}`} className="link-underline inline-block">
+              {PROFILE.phone}
+            </a>
+          </Magnet>
         </li>
       </ul>
     </section>

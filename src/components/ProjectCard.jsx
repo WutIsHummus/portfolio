@@ -1,3 +1,6 @@
+import Reveal from './Reveal.jsx';
+import SpotlightCard from './reactbits/SpotlightCard/SpotlightCard.jsx';
+
 export default function ProjectCard({ project }) {
   const isExternal = project.link && project.link.startsWith('http');
   const TitleTag = project.link && project.link !== '#' ? 'a' : 'div';
@@ -11,58 +14,54 @@ export default function ProjectCard({ project }) {
       : {};
 
   return (
-    <article className="reveal group">
-      <div
-        className={`project-art-wrap rounded-sm bg-cream-200 dark:bg-ink-800 overflow-hidden ${
-          project.compact ? 'mx-auto w-full sm:w-3/4 lg:w-2/3' : ''
-        }`}
+    <Reveal><article>
+      <SpotlightCard
+        className="p-0 rounded-sm border-rule bg-asphalt"
+        spotlightColor="rgba(228, 87, 46, 0.28)"
       >
         <img
           src={project.image}
-          alt={`${project.name} cover`}
+          alt={project.imageAlt || ''}
           width={project.width}
           height={project.height}
           loading="lazy"
-          className="project-art-inner w-full h-auto block"
+          className={`w-full h-auto block ${project.compact ? 'mx-auto sm:w-3/4' : ''}`}
         />
-      </div>
+        <div className="p-5 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
+            <div>
+              {project.logo && <img src={project.logo} alt="" width="48" height="48" className="w-12 h-12 object-contain mb-3" loading="lazy" />}
+              <TitleTag
+                {...titleProps}
+                className={`font-display font-semibold text-[1.45rem] sm:text-[1.7rem] leading-tight text-paper ${
+                  titleProps.href ? 'link-underline inline-block' : ''
+                }`}
+              >
+                {project.name}
+                {isExternal && (
+                  <span aria-hidden="true" className="text-signal ml-2">
+                    ↗
+                  </span>
+                )}
+              </TitleTag>
+              <p className="mt-1 font-sans text-gold">{project.subtitle}</p>
+            </div>
+            <span className="mono-caps text-mute sm:text-right shrink-0">{project.dates}</span>
+          </div>
 
-      <div className="mt-6 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
-        <div>
-          <TitleTag
-            {...titleProps}
-            className={`font-sans font-medium text-[1.4rem] sm:text-[1.7rem] leading-tight text-ink-900 dark:text-cream-50 ${
-              titleProps.href ? 'link-underline inline-block' : ''
-            }`}
-          >
-            {project.name}
-            {isExternal && (
-              <span aria-hidden="true" className="text-accent dark:text-accent-light ml-2">↗</span>
-            )}
-          </TitleTag>
-          <p className="font-display font-semibold text-accent dark:text-accent-light text-[1.05rem] sm:text-[1.25rem] leading-tight mt-1">
-            {project.subtitle}
+          <p className="mt-3 font-sans text-[1rem] leading-[1.65] text-paper/80 max-w-2xl">
+            {project.description}
           </p>
+
+          <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-1">
+            {project.tags.map((t) => (
+              <li key={t} className="mono-caps text-mute">
+                {t}
+              </li>
+            ))}
+          </ul>
         </div>
-        <span className="mono-caps text-ink-700 dark:text-ink-300 sm:text-right shrink-0">
-          {project.dates}
-        </span>
-      </div>
-
-      <p className="mt-4 font-sans text-[1rem] sm:text-[1.05rem] leading-[1.65] text-ink-900 dark:text-cream-100 max-w-2xl">
-        {project.description}
-      </p>
-
-      <ul className="mt-5 flex flex-wrap gap-2">
-        {project.tags.map((t) => (
-          <li
-            key={t}
-            className="hud-pill text-ink-800 dark:text-cream-100"
-          >
-            {t}
-          </li>
-        ))}
-      </ul>
-    </article>
+      </SpotlightCard>
+    </article></Reveal>
   );
 }

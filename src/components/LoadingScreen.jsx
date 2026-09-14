@@ -15,7 +15,7 @@ export default function LoadingScreen({ onDone }) {
     const remaining = Math.max(LOADING.minDurationMs - elapsed, 0);
     const t = setTimeout(() => {
       setHidden(true);
-      setTimeout(() => onDone?.(), 600);
+      setTimeout(() => onDone?.(), 550);
     }, remaining);
     return () => clearTimeout(t);
   }, [onDone]);
@@ -29,14 +29,14 @@ export default function LoadingScreen({ onDone }) {
       aria-live="polite"
       aria-label="Loading"
     >
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-3">
         <img
           src={imgSrc}
           alt=""
-          className="w-[160px] h-[160px] object-contain pointer-events-none"
+          className="w-[160px] h-[160px] object-contain pointer-events-none drop-shadow-[0_8px_18px_rgba(0,0,0,0.55)]"
           aria-hidden="true"
         />
-        <div className="font-mono text-sm text-cream-100 lowercase">
+        <div className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-mute">
           {message}
           <span className="loading-dots" aria-hidden="true" />
         </div>
