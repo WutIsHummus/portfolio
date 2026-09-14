@@ -1,13 +1,12 @@
 import AuraBackground from './components/AuraBackground.jsx';
 import { useState } from 'react';
-import BitsNav from './components/BitsNav.jsx';
+import NavBar from './components/NavBar.jsx';
 import Hero from './components/Hero.jsx';
 import About from './components/About.jsx';
 import Experience from './components/Experience.jsx';
 import Work from './components/Work.jsx';
 import Skills from './components/Skills.jsx';
 import Contact from './components/Contact.jsx';
-import Footer from './components/Footer.jsx';
 import ScrollIndicator from './components/ScrollIndicator.jsx';
 import LoadingScreen from './components/LoadingScreen.jsx';
 import Vlog from './components/Vlog.jsx';
@@ -21,7 +20,7 @@ export default function App() {
       <>
         {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
         <ScrollIndicator />
-        <BitsNav />
+        <NavBar />
         <Hero ready={loaded} />
 
         <div className="post-hero-content relative isolate">
@@ -45,7 +44,6 @@ export default function App() {
             <Reveal><Skills /></Reveal>
             <Reveal><Vlog /></Reveal>
             <Reveal><Contact /></Reveal>
-            <Footer />
           </div>
         </div>
         </div>

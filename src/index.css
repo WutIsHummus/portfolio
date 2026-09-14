@@ -65,38 +65,105 @@ body {
   --color-4: #e4572e;
 }
 
-.bits-menu .sm-scope {
-  pointer-events: none;
+.site-nav {
+  position: fixed;
+  top: 22px;
+  right: clamp(20px, 4vw, 64px);
   z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 28px;
+  pointer-events: none;
 }
-
-.bits-menu .sm-scope .staggered-menu-header,
-.bits-menu .sm-scope .staggered-menu-panel,
-.bits-menu .sm-scope .sm-toggle {
+.site-nav > * {
   pointer-events: auto;
 }
-
-.bits-menu .sm-logo {
-  display: none !important;
+.site-nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 6px 0;
+  color: rgb(var(--paper));
+  font-size: 14px;
+  font-weight: 500;
+  background: none;
+  border: 0;
+  text-shadow: 0 1px 12px rgb(var(--asphalt)), 0 0 5px rgb(var(--asphalt));
 }
-
-.bits-menu .staggered-menu-header {
-  justify-content: flex-end;
+.site-nav-toggle span {
+  color: #e4572e;
+  font-size: 19px;
 }
-
-.bits-menu .staggered-menu-panel {
-  background: #f2ebe0 !important;
+.site-nav-toggle:hover {
+  color: #e4572e;
 }
-
-.bits-menu .sm-panel-item {
+.site-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 54;
+  border: 0;
+  background: rgb(0 0 0 / 0.55);
+  backdrop-filter: blur(6px);
+}
+.site-nav-panel {
+  position: fixed;
+  inset: 0 0 0 auto;
+  z-index: 55;
+  width: min(480px, 100%);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 28px clamp(22px, 5vw, 44px) 36px;
+  border: 0;
+  border-left: 1px solid rgb(var(--rule));
+  background: rgb(var(--asphalt));
+  color: rgb(var(--paper));
+  transform: translateX(110%);
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.site-nav-panel.is-open {
+  transform: translateX(0);
+  pointer-events: auto;
+}
+.site-nav-panel-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 36px;
+}
+.site-nav-panel nav a {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgb(var(--rule));
   font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: clamp(2.1rem, 6vh, 3.25rem) !important;
-  letter-spacing: -1px !important;
+  font-size: clamp(28px, 5vh, 42px);
+  font-weight: 600;
+  letter-spacing: -1px;
 }
-
+.site-nav-panel nav a:hover,
+.site-nav-panel nav a.is-active {
+  color: #e4572e;
+}
+.site-nav-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+  margin-top: auto;
+  padding-top: 28px;
+  font-size: 14px;
+}
+.site-nav-socials a:hover {
+  color: #e4572e;
+}
 @media (max-width: 640px) {
-  .bits-menu .sm-panel-item {
-    font-size: 2.35rem !important;
+  .site-nav {
+    top: 16px;
+    right: 24px;
   }
 }
 
@@ -293,7 +360,7 @@ html, body, .loading-screen { background: rgb(var(--asphalt)); color: rgb(var(--
 .hero-fluid::after { content:''; position:absolute; inset:0; background:linear-gradient(0deg,rgb(var(--asphalt)),transparent 25%,transparent 80%,rgb(var(--asphalt) / .4)); }
 @media(max-width:640px) { .site-header { top:16px; right:24px; gap:24px; } .nav-control.theme-button { font-size:14px; letter-spacing:normal; } .hero-fluid { opacity:.75; } }
 
-/* StealthCoach diagonal aurora, flipped into the bottom-right and faded from the bottom. */
+/* StealthCoach diagonal aurora, top-left, looping without a seam. */
 .page-aura {
   position: fixed;
   inset: 0;
@@ -301,7 +368,7 @@ html, body, .loading-screen { background: rgb(var(--asphalt)); color: rgb(var(--
   pointer-events: none;
   overflow: hidden;
   opacity: 0;
-  will-change: opacity, transform;
+  will-change: opacity;
 }
 .aura-scroll { position: absolute; inset: -8%; }
 .aura-pointer { position: absolute; inset: 0; }
@@ -314,17 +381,9 @@ html, body, .loading-screen { background: rgb(var(--asphalt)); color: rgb(var(--
   background-image: var(--aura-gaps), var(--aura-colors);
   background-size: 200% 100%, 200% 100%;
   filter: blur(10px);
-  opacity: 0.65;
-  transform: scale(-1, -1);
-  transform-origin: center;
-  -webkit-mask-image:
-    radial-gradient(ellipse 90% 80% at 0% 0%, #000 12%, transparent 70%),
-    linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%);
-  mask-image:
-    radial-gradient(ellipse 90% 80% at 0% 0%, #000 12%, transparent 70%),
-    linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
+  opacity: 1;
+  -webkit-mask-image: radial-gradient(ellipse 140% 170% at 0% 0%, #000 22%, transparent 88%);
+  mask-image: radial-gradient(ellipse 140% 170% at 0% 0%, #000 22%, transparent 88%);
 }
 .aura-bands::after {
   content: '';
@@ -346,17 +405,12 @@ html, body, .loading-screen { background: rgb(var(--asphalt)); color: rgb(var(--
 
 @media (max-width: 640px) {
   .aura-bands {
-    opacity: 0.5;
-    -webkit-mask-image:
-      radial-gradient(ellipse 95% 75% at 0% 0%, #000 8%, transparent 66%),
-      linear-gradient(to bottom, #000 0%, #000 38%, transparent 100%);
-    mask-image:
-      radial-gradient(ellipse 95% 75% at 0% 0%, #000 8%, transparent 66%),
-      linear-gradient(to bottom, #000 0%, #000 38%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 150% 160% at 0% 0%, #000 16%, transparent 86%);
+    mask-image: radial-gradient(ellipse 150% 160% at 0% 0%, #000 16%, transparent 86%);
   }
 }
 
 /* Contain the aurora within the content below the hero. */
 .post-hero-content { overflow:clip; }
 .post-hero-content .page-aura { position:absolute; inset:0; overflow:clip; }
-.post-hero-content .aura-scroll { position:sticky; top:0; width:100%; height:110vh; }
+.post-hero-content .aura-scroll { position:sticky; top:0; width:100%; height:220vh; }

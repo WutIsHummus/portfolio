@@ -1,6 +1,5 @@
 import SectionLabel from './SectionLabel.jsx';
 import RobloxSprite from './RobloxSprite.jsx';
-import Magnet from './reactbits/Magnet/Magnet.jsx';
 import { PROFILE } from '../data/portfolio.js';
 
 export default function Contact() {
@@ -33,30 +32,6 @@ export default function Contact() {
           </a>
         </div>
       </div>
-
-      <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-4 mono-caps text-paper/85">
-        <li>
-          <Magnet padding={40} magnetStrength={3}>
-            <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="link-underline inline-block">
-              LinkedIn ↗
-            </a>
-          </Magnet>
-        </li>
-        <li>
-          <Magnet padding={40} magnetStrength={3}>
-            <a href={PROFILE.github} target="_blank" rel="noreferrer" className="link-underline inline-block">
-              GitHub ↗
-            </a>
-          </Magnet>
-        </li>
-        <li>
-          <Magnet padding={40} magnetStrength={3}>
-            <a href={`tel:${PROFILE.phone}`} className="link-underline inline-block">
-              {PROFILE.phone}
-            </a>
-          </Magnet>
-        </li>
-      </ul>
     </section>
   );
 }

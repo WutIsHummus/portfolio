@@ -3,7 +3,6 @@ import { gsap } from 'gsap';
 import useReducedMotion from './useReducedMotion.js';
 
 // Adapted from SteatlhCoachWeb commit 9c8b309, components/ui/aurora-background.tsx.
-// Flipped into the bottom-right corner; fades in as the post-hero section rises.
 export default function AuraBackground() {
   const root = useRef(null);
   const scrollLayer = useRef(null);
@@ -15,7 +14,7 @@ export default function AuraBackground() {
     if (!node) return;
 
     if (reduced) {
-      gsap.set(node, { opacity: 1, y: 0 });
+      gsap.set(node, { opacity: 0.7 });
       return;
     }
 
@@ -25,7 +24,6 @@ export default function AuraBackground() {
       const yTo = gsap.quickTo(pointerLayer.current, 'y', { duration: 1.2, ease: 'power2.out' });
       const scrollTo = gsap.quickTo(scrollLayer.current, 'y', { duration: 0.9, ease: 'power2.out' });
       const fadeTo = gsap.quickTo(node, 'opacity', { duration: 0.55, ease: 'power2.out' });
-      const riseTo = gsap.quickTo(node, 'y', { duration: 0.55, ease: 'power2.out' });
 
       const onPointer = (e) => {
         if (e.pointerType === 'touch') return;
@@ -39,8 +37,7 @@ export default function AuraBackground() {
         const rect = parent.getBoundingClientRect();
         const span = Math.max(window.innerHeight * 0.7, 1);
         const t = Math.min(1, Math.max(0, (window.innerHeight - rect.top) / span));
-        fadeTo(t);
-        riseTo((1 - t) * 80);
+        fadeTo(t * 0.7);
       };
 
       const reset = () => {

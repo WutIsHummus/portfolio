@@ -1,2 +1,0 @@
-import { PROFILE, NAV } from '../data/portfolio.js';
-export default function Footer() { return <footer className="mt-16"><nav aria-label="Footer navigation" className="footer-nav">{[{id:'top',label:'Start'},...NAV].map(n => <a key={n.id} href={'#'+n.id}>{n.label} &#8599;</a>)}</nav><div className="border-t border-rule mt-8 pt-6 pb-4 mono-caps text-mute flex flex-col sm:flex-row gap-3 sm:justify-between"><span>&copy; {new Date().getFullYear()} {PROFILE.name}</span><span>{PROFILE.coords} &middot; {PROFILE.location}</span></div></footer>; }
