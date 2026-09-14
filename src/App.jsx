@@ -1,6 +1,6 @@
 import AuraBackground from './components/AuraBackground.jsx';
 import { useState } from 'react';
-import NavBar from './components/NavBar.jsx';
+import BitsNav from './components/BitsNav.jsx';
 import Hero from './components/Hero.jsx';
 import About from './components/About.jsx';
 import Experience from './components/Experience.jsx';
@@ -20,7 +20,7 @@ export default function App() {
       <>
         {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
         <ScrollIndicator />
-        <NavBar />
+        <BitsNav />
         <Hero ready={loaded} />
 
         <div className="post-hero-content relative isolate">
