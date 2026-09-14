@@ -99,6 +99,17 @@ body {
   font-size: clamp(2.1rem, 6vh, 3.25rem) !important;
   letter-spacing: -1px !important;
   color: #f2ebe0 !important;
+  padding-right: 1.7em !important;
+}
+
+.bits-menu .sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after {
+  top: 0.08em !important;
+  right: 0 !important;
+  left: auto !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.06em !important;
+  line-height: 1;
 }
 
 .bits-menu .sm-panel-item:hover {
@@ -115,7 +126,13 @@ body {
 
 @media (max-width: 640px) {
   .bits-menu .sm-panel-item {
-    font-size: 2.35rem !important;
+    font-size: 2.2rem !important;
+    padding-right: 1.85em !important;
+  }
+
+  .bits-menu .sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after {
+    top: 0.04em !important;
+    font-size: 11px !important;
   }
 }
 
@@ -312,7 +329,7 @@ html, body, .loading-screen { background: rgb(var(--asphalt)); color: rgb(var(--
 .hero-fluid::after { content:''; position:absolute; inset:0; background:linear-gradient(0deg,rgb(var(--asphalt)),transparent 25%,transparent 80%,rgb(var(--asphalt) / .4)); }
 @media(max-width:640px) { .site-header { top:16px; right:24px; gap:24px; } .nav-control.theme-button { font-size:14px; letter-spacing:normal; } .hero-fluid { opacity:.75; } }
 
-/* StealthCoach diagonal aurora, top-left, looping without a seam. */
+/* StealthCoach / Aceternity aurora: diagonal bands, radial fade from the top-left. */
 .page-aura {
   position: fixed;
   inset: 0;
@@ -326,53 +343,40 @@ html, body, .loading-screen { background: rgb(var(--asphalt)); color: rgb(var(--
 .aura-pointer { position: absolute; inset: 0; }
 .aura-bands {
   --aura-colors: repeating-linear-gradient(100deg, #c45124 10%, #78301a 15%, #d56830 20%, #a7411d 25%, #c45124 30%);
-  --aura-gaps: repeating-linear-gradient(100deg, rgb(var(--asphalt)) 0%, rgb(var(--asphalt)) 3%, transparent 5%, transparent 7%, rgb(var(--asphalt)) 10%);
+  --aura-gaps: repeating-linear-gradient(100deg, rgb(var(--asphalt)) 0%, rgb(var(--asphalt)) 7%, transparent 10%, transparent 12%, rgb(var(--asphalt)) 16%);
   position: absolute;
   inset: -10px;
-  overflow: hidden;
   background-image: var(--aura-gaps), var(--aura-colors);
-  background-size: 200% 100%, 200% 100%;
+  background-size: 300% 200%, 200% 100%;
+  background-position: 50% 50%, 50% 50%;
   filter: blur(10px);
-  opacity: 1;
-  -webkit-mask-image:
-    radial-gradient(ellipse 78% 72% at 0% 0%, #000 8%, transparent 62%),
-    linear-gradient(135deg, #000 0%, transparent 58%);
-  mask-image:
-    radial-gradient(ellipse 78% 72% at 0% 0%, #000 8%, transparent 62%),
-    linear-gradient(135deg, #000 0%, transparent 58%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
+  opacity: 0.5;
+  -webkit-mask-image: radial-gradient(ellipse at 0% 0%, #000 10%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 0% 0%, #000 10%, transparent 70%);
 }
 .aura-bands::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 200%;
+  inset: 0;
   background-image: var(--aura-gaps), var(--aura-colors);
-  background-size: 50% 100%, 50% 100%;
+  background-size: 200% 100%, 100% 100%;
+  background-attachment: fixed;
   mix-blend-mode: screen;
   animation: portfolio-aurora 60s linear infinite;
-  will-change: transform;
 }
 @keyframes portfolio-aurora {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
+  from { background-position: 50% 50%, 50% 50%; }
+  to { background-position: 350% 50%, 350% 50%; }
 }
 
 @media (max-width: 640px) {
   .aura-bands {
-    -webkit-mask-image:
-      radial-gradient(ellipse 82% 68% at 0% 0%, #000 6%, transparent 58%),
-      linear-gradient(135deg, #000 0%, transparent 52%);
-    mask-image:
-      radial-gradient(ellipse 82% 68% at 0% 0%, #000 6%, transparent 58%),
-      linear-gradient(135deg, #000 0%, transparent 52%);
+    opacity: 0.4;
+    -webkit-mask-image: radial-gradient(ellipse at 0% 0%, #000 8%, transparent 62%);
+    mask-image: radial-gradient(ellipse at 0% 0%, #000 8%, transparent 62%);
   }
 }
 
-/* Keep the aurora off the hero, but fixed so opening the menu doesn't clip it. */
 .post-hero-content .page-aura {
   position: fixed;
   inset: 0;

@@ -14,7 +14,7 @@ export default function AuraBackground() {
     if (!node) return;
 
     if (reduced) {
-      gsap.set(node, { opacity: 0.7 });
+      gsap.set(node, { opacity: 1 });
       return;
     }
 
@@ -37,7 +37,7 @@ export default function AuraBackground() {
         const rect = parent.getBoundingClientRect();
         const span = Math.max(window.innerHeight * 0.7, 1);
         const t = Math.min(1, Math.max(0, (window.innerHeight - rect.top) / span));
-        fadeTo(t * 0.7);
+        fadeTo(t);
       };
 
       const reset = () => {
