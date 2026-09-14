@@ -37,7 +37,6 @@ export default function BitsNav() {
     return () => {
       document.removeEventListener('click', onClick);
       document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
     };
   }, []);
 
@@ -57,12 +56,6 @@ export default function BitsNav() {
         changeMenuColorOnOpen={false}
         accentColor="#e4572e"
         closeOnClickAway
-        onMenuOpen={() => {
-          document.body.style.overflow = 'hidden';
-        }}
-        onMenuClose={() => {
-          document.body.style.overflow = '';
-        }}
       />
     </div>
   );

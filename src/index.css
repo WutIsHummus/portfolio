@@ -334,8 +334,14 @@ html, body, .loading-screen { background: rgb(var(--asphalt)); color: rgb(var(--
   background-size: 200% 100%, 200% 100%;
   filter: blur(10px);
   opacity: 1;
-  -webkit-mask-image: radial-gradient(ellipse 140% 170% at 0% 0%, #000 22%, transparent 88%);
-  mask-image: radial-gradient(ellipse 140% 170% at 0% 0%, #000 22%, transparent 88%);
+  -webkit-mask-image:
+    radial-gradient(ellipse 78% 72% at 0% 0%, #000 8%, transparent 62%),
+    linear-gradient(135deg, #000 0%, transparent 58%);
+  mask-image:
+    radial-gradient(ellipse 78% 72% at 0% 0%, #000 8%, transparent 62%),
+    linear-gradient(135deg, #000 0%, transparent 58%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 .aura-bands::after {
   content: '';
@@ -357,12 +363,22 @@ html, body, .loading-screen { background: rgb(var(--asphalt)); color: rgb(var(--
 
 @media (max-width: 640px) {
   .aura-bands {
-    -webkit-mask-image: radial-gradient(ellipse 150% 160% at 0% 0%, #000 16%, transparent 86%);
-    mask-image: radial-gradient(ellipse 150% 160% at 0% 0%, #000 16%, transparent 86%);
+    -webkit-mask-image:
+      radial-gradient(ellipse 82% 68% at 0% 0%, #000 6%, transparent 58%),
+      linear-gradient(135deg, #000 0%, transparent 52%);
+    mask-image:
+      radial-gradient(ellipse 82% 68% at 0% 0%, #000 6%, transparent 58%),
+      linear-gradient(135deg, #000 0%, transparent 52%);
   }
 }
 
-/* Contain the aurora within the content below the hero. */
-.post-hero-content { overflow:clip; }
-.post-hero-content .page-aura { position:absolute; inset:0; overflow:clip; }
-.post-hero-content .aura-scroll { position:sticky; top:0; width:100%; height:220vh; }
+/* Keep the aurora off the hero, but fixed so opening the menu doesn't clip it. */
+.post-hero-content .page-aura {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+.post-hero-content .aura-scroll {
+  position: absolute;
+  inset: 0;
+}

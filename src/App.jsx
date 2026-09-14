@@ -39,7 +39,7 @@ export default function App() {
           <Work />
         </div>
 
-        <div className="relative z-10 px-6 sm:px-10 lg:px-16 pb-16">
+        <div className="relative z-10 px-6 sm:px-10 lg:px-16 pb-8">
           <div className="max-w-3xl mx-auto">
             <Reveal><Skills /></Reveal>
             <Reveal><Vlog /></Reveal>

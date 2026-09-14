@@ -4,12 +4,12 @@ import { PROFILE } from '../data/portfolio.js';
 
 export default function Contact() {
   return (
-    <section id="contact" className="scroll-mt-32 mb-20">
+    <section id="contact" className="scroll-mt-32 mb-8">
       <SectionLabel index={6}>Ping</SectionLabel>
 
       <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-6">
         <h2 className="font-display font-extrabold tracking-tightest leading-[0.92] text-[2.6rem] sm:text-[3.8rem] lg:text-[4.6rem] text-paper max-w-xl">
-          If it has to stay up under load, email me.
+          Looking for internships.
         </h2>
         <RobloxSprite
           src="/animations/sit.webp"
@@ -18,8 +18,7 @@ export default function Contact() {
       </div>
 
       <p className="mt-7 font-sans text-[1.08rem] leading-[1.65] text-paper/80 max-w-xl">
-        Software, embedded systems, and developer tooling. I read CAN traces
-        and remote-event logs for fun. That is not a metaphor.
+        CS at UT Austin. Software, embedded systems, and developer tooling.
       </p>
 
       <div className="mt-10 max-w-xl">
