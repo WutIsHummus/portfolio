@@ -67,28 +67,36 @@ body {
 
 .bits-menu .sm-scope {
   pointer-events: none;
+  z-index: 50;
 }
 
 .bits-menu .sm-scope .staggered-menu-header,
 .bits-menu .sm-scope .staggered-menu-panel,
-.bits-menu .sm-scope .sm-toggle,
-.bits-menu .sm-scope .sm-logo {
+.bits-menu .sm-scope .sm-toggle {
   pointer-events: auto;
 }
 
-.bits-menu .sm-logo-img {
-  height: 52px !important;
-  width: auto;
+.bits-menu .sm-logo {
+  display: none !important;
+}
+
+.bits-menu .staggered-menu-header {
+  justify-content: flex-end;
 }
 
 .bits-menu .staggered-menu-panel {
   background: #f2ebe0 !important;
 }
 
+.bits-menu .sm-panel-item {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(2.1rem, 6vh, 3.25rem) !important;
+  letter-spacing: -1px !important;
+}
+
 @media (max-width: 640px) {
   .bits-menu .sm-panel-item {
     font-size: 2.35rem !important;
-    letter-spacing: -1px !important;
   }
 }
 
@@ -285,25 +293,68 @@ html, body, .loading-screen { background: rgb(var(--asphalt)); color: rgb(var(--
 .hero-fluid::after { content:''; position:absolute; inset:0; background:linear-gradient(0deg,rgb(var(--asphalt)),transparent 25%,transparent 80%,rgb(var(--asphalt) / .4)); }
 @media(max-width:640px) { .site-header { top:16px; right:24px; gap:24px; } .nav-control.theme-button { font-size:14px; letter-spacing:normal; } .hero-fluid { opacity:.75; } }
 
-/* StealthCoach's earlier diagonal aurora (9c8b309), adapted to burnt orange. */
-.page-aura { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-.aura-scroll { position:absolute; inset:-8%; }
-.aura-pointer { position:absolute; inset:0; }
-.aura-bands {
-  --aura-colors:repeating-linear-gradient(100deg,#c45124 10%,#78301a 15%,#d56830 20%,#a7411d 25%,#c45124 30%);
-  --aura-gaps:repeating-linear-gradient(100deg,rgb(var(--asphalt)) 0%,rgb(var(--asphalt)) 3%,transparent 5%,transparent 7%,rgb(var(--asphalt)) 10%);
-  position:absolute; inset:-10px;
-  background-image:var(--aura-gaps),var(--aura-colors);
-  background-size:300% 200%,200% 100%;
-  background-position:50% 50%,50% 50%;
-  filter:blur(10px); opacity:.65;
-  mask-image:radial-gradient(ellipse at 0% 0%,#000 10%,transparent 68%);
+/* StealthCoach diagonal aurora, flipped into the bottom-right and faded from the bottom. */
+.page-aura {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  will-change: opacity, transform;
 }
-.aura-bands::after { content:''; position:absolute; inset:0; background-image:var(--aura-gaps),var(--aura-colors); background-size:200% 100%,100% 100%; mix-blend-mode:screen; animation:portfolio-aurora 60s linear infinite; }
-@keyframes portfolio-aurora { from { background-position:50% 50%,50% 50%; } to { background-position:350% 50%,350% 50%; } }
+.aura-scroll { position: absolute; inset: -8%; }
+.aura-pointer { position: absolute; inset: 0; }
+.aura-bands {
+  --aura-colors: repeating-linear-gradient(100deg, #c45124 10%, #78301a 15%, #d56830 20%, #a7411d 25%, #c45124 30%);
+  --aura-gaps: repeating-linear-gradient(100deg, rgb(var(--asphalt)) 0%, rgb(var(--asphalt)) 3%, transparent 5%, transparent 7%, rgb(var(--asphalt)) 10%);
+  position: absolute;
+  inset: -10px;
+  overflow: hidden;
+  background-image: var(--aura-gaps), var(--aura-colors);
+  background-size: 200% 100%, 200% 100%;
+  filter: blur(10px);
+  opacity: 0.65;
+  transform: scale(-1, -1);
+  transform-origin: center;
+  -webkit-mask-image:
+    radial-gradient(ellipse 90% 80% at 0% 0%, #000 12%, transparent 70%),
+    linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%);
+  mask-image:
+    radial-gradient(ellipse 90% 80% at 0% 0%, #000 12%, transparent 70%),
+    linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.aura-bands::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 200%;
+  background-image: var(--aura-gaps), var(--aura-colors);
+  background-size: 50% 100%, 50% 100%;
+  mix-blend-mode: screen;
+  animation: portfolio-aurora 60s linear infinite;
+  will-change: transform;
+}
+@keyframes portfolio-aurora {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
 
-
-@media(max-width:640px) { .aura-bands { opacity:.5; mask-image:radial-gradient(ellipse at 0% 0%,#000 5%,transparent 65%); } }
+@media (max-width: 640px) {
+  .aura-bands {
+    opacity: 0.5;
+    -webkit-mask-image:
+      radial-gradient(ellipse 95% 75% at 0% 0%, #000 8%, transparent 66%),
+      linear-gradient(to bottom, #000 0%, #000 38%, transparent 100%);
+    mask-image:
+      radial-gradient(ellipse 95% 75% at 0% 0%, #000 8%, transparent 66%),
+      linear-gradient(to bottom, #000 0%, #000 38%, transparent 100%);
+  }
+}
 
 /* Contain the aurora within the content below the hero. */
 .post-hero-content { overflow:clip; }
